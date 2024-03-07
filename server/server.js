@@ -26,6 +26,9 @@ app.use(cookieParser());
 
 // 
 app.use('/',userRouter)
+app.use('/add',userRouter)
+app.use('/delete',userRouter)
+app.use('/reset',userRouter)
 
 // Hosting the instance of our server at the specific port number
 app.listen (PORT, ()=> {

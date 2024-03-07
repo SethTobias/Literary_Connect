@@ -8,7 +8,7 @@ const pool = mysql.createPool({
     host: process.env.host,
     user: process.env.user,
     database: process.env.db,
-    port: process.env.port,
+    port: process.env.mysqlPort,
     password: process.env.password,
     uri: process.env.uri,
       // Allow waiting for connections when the connection limit is reached
@@ -17,7 +17,7 @@ const pool = mysql.createPool({
   connectionLimit: 10,
   // Maximum number of connection requests the pool will queue before returning an error
   queueLimit: 0
-}).promise();
+}).promise()
 
 //
 export { pool };
