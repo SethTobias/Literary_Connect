@@ -1,6 +1,7 @@
 
 //
-import {  getUsers,getUsersAUN,getUsersDUN,getUser,getHash,putUser,deleteUser,resetUsers } from "../model/userModel.js"
+import {  getUsers,getUsersAUN,getUsersDUN,getFollows,getUser,getHash,putUser,deleteUser,resetUsers,
+    resetFollows} from "../model/users.js"
 import { config } from "dotenv";
 config()
 import bcrypt from "bcrypt";
@@ -16,17 +17,47 @@ const userController = {
             res.status(500).json({ error: "Internal Server Error" });
         }
     },
+    getFollows: async (req, res) => {
+        try {
+            const follows = await getFollows();
+            res.status(200).json(follows);
+        } catch (error) {
+            console.error("Error in getFollows:", error);
+            res.status(500).json({ error: "Internal Server Error" });
+        }
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     putUser: async(req,res) => {
             try {
-                let {firstName,lastName,email,userName,userPass} = req.body;
-                bcrypt.hash(userPass, 20, async (error, hash) => {
+                let {firstName,lastName,username,email,password} = req.body;
+                bcrypt.hash(password, 20, async (error, hash) => {
                     if (error) {
                         console.error("Error hashing password:", error);
                         res.status(500).json({ error: "Internal Server Error" });
                         return;
                     }
                     try {
-                        let newUser = await putUser(firstName, lastName, email, userName, hash);
+                        let newUser = await putUser(firstName, lastName, username,email, hash);
                         res.status(201).json(newUser);
                     } catch (putUserError) {
                         console.error("Error in putUser:", putUserError);
@@ -35,16 +66,15 @@ const userController = {
                 });
             } catch (error) {
                 res.json({
-                    status: res.status(400),
-                    msg: "An error occurred while processing your request. User was not added.",
+                    status: res.status(400),                    msg: "An error occurred while processing your request. User was not added.",
                 });
             }
     },  
     deleteUser: async(req,res) => {
         try {
-            let {userName,userPass} = req.body;
+            let {username,password} = req.body;
           
-                    let deletedUser = deleteUser(userName,userPass)
+                    let deletedUser = deleteUser(username,password)
                     res.status(200).json(deletedUser)
         } catch (error) {
             res.json({
@@ -53,10 +83,20 @@ const userController = {
               });
         }
     },
+    //
     resetUsers: async(req,res) => {
         try {
             let reset = resetUsers();
             res.status(200).json({msg:"All Users were deleted from the Database."});
+            return reset;
+        } catch (error) {
+            
+        }
+    },
+    resetFollows: async(req,res) => {
+        try {
+            let reset = resetFollows();
+            res.status(200).json({msg:"All Follows were deleted from the Database."});
             return reset;
         } catch (error) {
             
@@ -66,13 +106,13 @@ const userController = {
 
     // const login = async (req, res) => {
     //     try {
-    //         const { userName, userPass } = req.body;
+    //         const { username, password } = req.body;
     
     //         // Retrieve hashed password from the database based on the username
-    //         const hashedPassword = await getHash(userName);
+    //         const hashedPassword = await getHash(username);
     
     //         // Compare the provided password with the hashed password
-    //         bcrypt.compare(userPass, hashedPassword, (error, result) => {
+    //         bcrypt.compare(password, hashedPassword, (error, result) => {
     //             if (error) {
     //                 console.error("Error comparing passwords:", error);
     //                 res.status(500).json({ error: "Internal Server Error" });
