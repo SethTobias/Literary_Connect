@@ -1,14 +1,59 @@
 <template>
   <nav class="Navbar">
-    <router-link to="/">Home</router-link>
-    <p>Search</p>
-    <router-link to="/discover">Discover</router-link>
-    <router-link to="/links">Links</router-link>
-    <p>Conversations</p>
-    <p>Notifications</p>
-    <router-link to="/interact">Interact</router-link>
-    <router-link to="/profile">My Profile</router-link>
-    <router-link to="/settings">Settings</router-link>
+    <div id="logo">
+      <router-link to="/">
+        <h1>Literary Connect</h1>
+
+        <img src="https://i.ibb.co/f2FxRQ1/Logo-Light.png" alt="Website Logo" />
+        <!-- <img src="https://i.ibb.co/Z2ncByL/Logo-Dark.png" alt="Website Logo"> -->
+      </router-link>
+    </div>
+    <router-link to="/">
+    <div class="route-home">
+      <div class="home-icon">
+       <i class="fa-solid fa-location-pin"></i>
+        <i class="fa-solid fa-link"></i>
+      </div>
+      Home
+      </div> 
+    </router-link>
+    <p>
+      <i class="fa-solid fa-magnifying-glass"></i>
+      Search
+      
+      </p>
+    <router-link to="/discover">
+    <i class="fa-solid fa-eye"></i>
+    <!-- <i class="fa-regular fa-eye"></i> -->
+    Discover
+    </router-link>
+    <router-link to="/links">
+    <i class="fa-solid fa-link"></i>
+    Links
+    </router-link>
+    <p>
+      <i class="fa-solid fa-comment-dots"></i>
+      <!-- <i class="fa-regular fa-comment-dots"></i> -->
+      Conversations
+      </p>
+    <p>
+      <i class="fa-solid fa-heart"></i>
+      <!-- <i class="fa-regular fa-heart"></i> -->
+    Notifications
+    </p>
+    <router-link to="/interact">
+    <i class="fa-solid fa-users"></i>
+    Interact
+    </router-link>
+    <router-link to="/profile">
+    <i class="fa-solid fa-id-badge"></i>
+    <!-- <i class="fa-regular fa-id-badge"></i> -->
+    My Profile
+    </router-link>
+    <router-link to="/settings">
+    <i class="fa-solid fa-gears"></i>
+    Settings
+    </router-link>
   </nav>
 </template>
 
@@ -19,14 +64,13 @@
 </script>
 
 <style scoped>
- :root {
-    --txt: hsl(180, 44%, 7%);
-    --bg: hsl(180, 40%, 98%);
-    --primary: hsl(180, 66%, 53%);
-    --secondary: hsl(223, 65%, 71%);
-    --accent: hsl(242, 93%, 62%);
-  }
-
+:root {
+  --txt: hsl(180, 44%, 7%);
+  --bg: hsl(180, 40%, 98%);
+  --primary: hsl(180, 66%, 53%);
+  --secondary: hsl(223, 65%, 71%);
+  --accent: hsl(242, 93%, 62%);
+}
 
 nav {
   /*  */
@@ -44,13 +88,12 @@ nav {
   /*  */
   border: 2.5px var(--txt) solid;
   /*  */
-  padding: 25px 0;
-  height: 100vh;
+  height: 99.32vh;
 }
 
-nav :is(a,p) {
+nav :is(a, p) {
   /*  */
-  color: #2c3e50;
+  color: var(--txt);
   text-decoration: none;
   font-weight: bold;
 }
@@ -61,8 +104,22 @@ nav :is(p) {
   padding: 0;
 }
 
+nav :is(i) {
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+}
+
+nav :is(i):active {
+  color: var(--accent);
+}
+
 nav a.router-link-exact-active {
   color: var(--accent);
+}
+
+#logo {
+  
 }
 
 @media (prefers-color-scheme: light) {
@@ -84,6 +141,4 @@ nav a.router-link-exact-active {
     --accent: hsl(242, 93%, 38%);
   }
 }
-
-
 </style>

@@ -20,6 +20,13 @@ export default {
        --primary: hsl(180, 66%, 53%);
        --secondary: hsl(223, 65%, 71%);
        --accent: hsl(242, 93%, 62%);
+       --typography: "Eagle Lake", serif;
+     }
+
+     * {
+      /*  */
+      font-family: var(--typography);
+      color: var(--txt);
      }
 
 #app {
