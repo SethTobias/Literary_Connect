@@ -1,5 +1,12 @@
 //
-import {getComments,resetComments} from "../model/comments.js";
+import {
+  getComments,
+  getComment,
+  putComment,
+  editComment,
+  deleteComment,
+  resetComments,
+} from "../model/comments.js";
 import { config } from "dotenv";
 config();
 const commentController = {
@@ -13,15 +20,15 @@ const commentController = {
     }
   },
   //
-  resetComments: async(req,res) => {
+  resetComments: async (req, res) => {
     try {
-        let reset = resetComments();
-        res.status(200).json({msg:"All Comments were deleted from the Database."});
-        return reset;
-    } catch (error) {
-        
-    }
-}
+      let reset = resetComments();
+      res
+        .status(200)
+        .json({ msg: "All Comments were deleted from the Database." });
+      return reset;
+    } catch (error) {}
+  },
 };
 
 export default commentController;

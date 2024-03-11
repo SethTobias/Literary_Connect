@@ -1,5 +1,23 @@
 //
-import { getPosts,getLikes,getShares,resetPosts,resetLikes,resetShares } from "../model/posts.js";
+import {
+  getPosts,
+  getUserPosts,
+  getPost,
+  putPost,
+  editPost,
+  deletePost,
+  resetPosts,
+  //
+  getLikes,
+  putLike,
+  deleteLike,
+  resetLikes,
+  //
+  getShares,
+  putShares,
+  deleteShares,
+  resetShares,
+} from "../model/posts.js";
 import { config } from "dotenv";
 config();
 const postController = {
@@ -30,34 +48,34 @@ const postController = {
       res.status(500).json({ error: "Internal Server Error" });
     }
   },
-    //
-    resetPosts: async(req,res) => {
-        try {
-            let reset = resetPosts();
-            res.status(200).json({msg:"All Posts were deleted from the Database."});
-            return reset;
-        } catch (error) {
-            
-        }
-    },
-    resetLikes: async(req,res) => {
-        try {
-            let reset = resetLikes();
-            res.status(200).json({msg:"All Likes were deleted from the Database."});
-            return reset;
-        } catch (error) {
-            
-        }
-    },
-    resetShares: async(req,res) => {
-        try {
-            let reset = resetShares();
-            res.status(200).json({msg:"All Shares were deleted from the Database."});
-            return reset;
-        } catch (error) {
-            
-        }
-    }
+  //
+  resetPosts: async (req, res) => {
+    try {
+      let reset = resetPosts();
+      res
+        .status(200)
+        .json({ msg: "All Posts were deleted from the Database." });
+      return reset;
+    } catch (error) {}
+  },
+  resetLikes: async (req, res) => {
+    try {
+      let reset = resetLikes();
+      res
+        .status(200)
+        .json({ msg: "All Likes were deleted from the Database." });
+      return reset;
+    } catch (error) {}
+  },
+  resetShares: async (req, res) => {
+    try {
+      let reset = resetShares();
+      res
+        .status(200)
+        .json({ msg: "All Shares were deleted from the Database." });
+      return reset;
+    } catch (error) {}
+  },
 };
 
 export default postController;
