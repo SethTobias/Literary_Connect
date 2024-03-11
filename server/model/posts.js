@@ -27,21 +27,23 @@ const getPost = async (post_id) => {
   );
   return post;
 };
-const putPost = async (getCoulumnNames) => {
+const putPost = async (user_id,content,caption) => {
   let [post] = await pool.query(
     `
-    INSERT INTO posts () VALUES (?,?,?,?)
+    INSERT INTO posts (user_id,content,caption) VALUES (?,?,?)
     `,
-    [getCoulumnNames]
+    [user_id,content,caption]
   );
+  return post
 };
-const editPost = async () => {
+const editPost = async (content,caption,post_id) => {
   let [alteredPost] = await pool.query(
     `
-    UPDATE SET  WHERE (post_id=?)
+    UPDATE SET content=?,caption=? WHERE (post_id=?)
     `,
-    []
+    [content,caption,post_id]
   );
+  return alteredPost
 };
 const deletePost = async (post_id) => {
   await pool.query(
@@ -55,28 +57,29 @@ const deletePost = async (post_id) => {
 /*
 
 */
-const getLikes = async () => {
+const getLikes = async (post_id) => {
   let [likes] = await pool.query(`
-      SELECT * FROM post_likes
-      `);
+      SELECT * FROM post_likes WHERE post_id=?
+      `,[post_id]);
   return likes;
 };
-const putLike = async (columnNames) => {
+const putLike = async (user_id,post_id) => {
   let [like] = await pool.query(
     `
-      INSERT INTO post_likes (columnNames) VALUES (?,?,?)
-      `
+      INSERT INTO post_likes (user_id,post_id) VALUES (?,?)
+      `,[user_id,post_id]
   );
+  return like
 };
-const deleteLike = async () => {
+const deleteLike = async (like_id) => {
   await pool.query(
     `
     DELETE FROM post_likes WHERE like_id=? 
-    `
+    `,[like_id]
   );
 };
 /*
-
+!!!!!! COME BACK TO
 */
 const getShares = async () => {
   let [shares] = await pool.query(`

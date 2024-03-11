@@ -15,7 +15,7 @@ const getUsers = async () => {
 };
 const getUsersAUN = async () => {
   let [users] = await pool.query(`
-    SELECT * FROM users ORDER BY username ASC
+    SELECT * FROM users ORDER BY username
     `);
   return users;
 };
@@ -126,6 +126,15 @@ const getUser = async (username) => {
     SELECT * FROM users WHERE username = ?
     `,
     [username]
+  );
+  return users;
+};
+const checkUsers = async (username,email) => {
+  const [users] = await pool.query(
+    `
+    SELECT * FROM users WHERE username = ? AND email=?
+    `,
+    [username,email]
   );
   return users;
 };
@@ -251,6 +260,8 @@ export {
   getFollows,
   getFollowers,
   getFollowing,
+  //
+  checkUsers,
   //
   putUser,
   follow,

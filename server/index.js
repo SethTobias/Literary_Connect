@@ -29,7 +29,15 @@ app.use(cookieParser());
 
 // 
 app.use('/',userRouter)
-app.use('/',userRouter)
+app.use("/A",userRouter)
+app.use("/D",userRouter)
+app.use("/TA",userRouter)
+app.use("/TD",userRouter)
+app.use("/review",userRouter)
+app.use("/reported",userRouter)
+app.use('/login',userRouter)
+app.use('/editType',userRouter)
+app.use('/report',userRouter)
 app.use('/add',userRouter)
 app.use('/delete',userRouter)
 app.use('/reset',userRouter)
