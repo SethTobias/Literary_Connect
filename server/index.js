@@ -40,31 +40,38 @@ app.use('/editType',userRouter)
 app.use('/report',userRouter)
 app.use('/add',userRouter)
 app.use('/delete',userRouter)
-app.use('/reset',userRouter)
-
+// app.use('/reset',userRouter)
+//
+app.use('/following',userRouter).get
+app.use('/followers',userRouter).get
+app.use('/follow',userRouter).post
+app.use('/unfollow',userRouter).delete
 // 
 app.use('/',postRouter)
-app.use('/',postRouter)
-app.use('/',postRouter)
-
 app.use('/add',postRouter)
+app.use('/edit',postRouter)
 app.use('/delete',postRouter)
-app.use('/reset',postRouter)
+//
+app.use('/like',postRouter)
+app.use('/like/add',postRouter)
+app.use('/like/delete',postRouter)
+// app.use('/reset',postRouter)
+
 
 // 
 app.use('/',commentRouter)
 app.use('/add',commentRouter)
+app.use('/edit',commentRouter)
 app.use('/delete',commentRouter)
-app.use('/reset',commentRouter)
+// app.use('/reset',commentRouter)
 
 // 
 app.use('/',chatRouter)
 app.use('/',chatRouter)
 app.use('/',chatRouter)
-
 app.use('/add',chatRouter)
 app.use('/delete',chatRouter)
-app.use('/reset',chatRouter)
+// app.use('/reset',chatRouter)
 
 // Hosting the instance of our server at the specific port number
 app.listen (PORT, ()=> {

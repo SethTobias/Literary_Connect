@@ -325,8 +325,8 @@ const userController = {
   },
   follow: async (req, res) => {
     let { follower_id, following_id } = req.body;
-    let follow = await follow(follower_id, following_id);
-    res.status(201).json(follow);
+    let followUser = await follow(follower_id, following_id);
+    res.status(201).json(followUser);
   },
   unfollow: async (req, res) => {
     let { follower_id, following_id } = req.body;

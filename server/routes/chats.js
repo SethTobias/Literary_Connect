@@ -15,7 +15,7 @@ router.route("/chat").get(chatController.getChats);
 // router.route("/chat/add").post(chatController.putChat);
 // router.route("/chat/delete").delete(chatController.deleteChat);
 
-router.route("/reset").delete(chatController.resetChats);
+// router.route("/reset").delete(chatController.resetChats);
 //
 router.route("/part").get(chatController.getParticipants);
 // router.route("/chat/add").post(chatController.putChat);
@@ -27,6 +27,6 @@ router.route("/messages").get(chatController.getMessages);
 // router.route("/chat/add").post(chatController.putChat);
 // router.route("/chat/delete").delete(chatController.deleteChat);
 
-router.route("/reset").delete(chatController.resetMessages);
+// router.route("/reset").delete(chatController.resetMessages);
 
 export default router;

@@ -33,11 +33,15 @@ router.route("/user/editType").patch(userController.editUserType);
 router.route("/user/report").patch(userController.report);
 router.route("/user/delete").delete(verifyToken,userController.deleteUser);
 //
-router.route("/follow").get(verifyToken,userController.getFollows);
+router.route("user/follow").get(userController.getFollows);
+router.route("user/following").get(userController.getFollowing);
+router.route("user/followers").get(userController.getFollowers);
+router.route("user/follow").get(userController.follow);
+router.route("user/unfollow").get(userController.unfollow);
 
 
 
-router.route("/reset").delete(userController.resetUsers);
-router.route("/reset").delete(userController.resetFollows);
+// router.route("/reset").delete(userController.resetUsers);
+// router.route("/reset").delete(userController.resetFollows);
 
 export default router;
