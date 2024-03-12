@@ -12,7 +12,7 @@ config();
 const commentController = {
   getComments: async (req, res) => {
     try {
-      let post_id = +req.params;
+      let {post_id} = +req.params.post_id;
       const comments = await getComments(post_id);
       res.status(200).json(comments);
     } catch (error) {

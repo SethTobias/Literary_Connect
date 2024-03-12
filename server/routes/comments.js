@@ -11,7 +11,7 @@ config()
 const router = express.Router();
 
 //
-router.route("/comment").get(commentController.getComments);
+router.route("/comment/:post_id").get(commentController.getComments);
 router.route("/comment/add").post(commentController.putComment);
 router.route("/comment/edit").patch(commentController.editComment);
 router.route("/comment/delete").delete(commentController.deleteComment);

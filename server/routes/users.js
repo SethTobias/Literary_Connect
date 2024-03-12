@@ -33,15 +33,27 @@ router.route("/user/editType").patch(userController.editUserType);
 router.route("/user/report").patch(userController.report);
 router.route("/user/delete").delete(verifyToken,userController.deleteUser);
 //
-router.route("user/follow").get(userController.getFollows);
-router.route("user/following").get(userController.getFollowing);
-router.route("user/followers").get(userController.getFollowers);
-router.route("user/follow").get(userController.follow);
-router.route("user/unfollow").get(userController.unfollow);
+router.route("/user/follows").get(userController.getFollows);
+router.route("/user/following").get(userController.getFollowing);
+router.route("/user/followers").get(userController.getFollowers);
+router.route("/user/follow").post(userController.follow);
+router.route("/user/unfollow").delete(userController.unfollow);
 
 
 
 // router.route("/reset").delete(userController.resetUsers);
 // router.route("/reset").delete(userController.resetFollows);
+
+
+// {
+//   "follower_id":9
+// }
+// {
+//   "following_id":1
+// }
+// {
+//   "username": "Therebybeach",
+//     "password": "1234S"
+// 
 
 export default router;
