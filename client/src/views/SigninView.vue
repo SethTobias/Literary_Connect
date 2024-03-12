@@ -1,5 +1,6 @@
 <template>
     <div id="signin">
+      <Sign v-if="notSign"/>
       <h1>Literary Connect</h1>
       <img src="https://i.ibb.co/HChwBLC/Logo.png" alt="site Logo" />
       <form class="signin-form">
@@ -16,7 +17,20 @@
     </div>
 </template>
 
-<script></script>
+<script>
+import Sign from "../components/Sign.vue"; 
+export default {
+  components: {
+    Sign,
+  },
+  props: {
+    notSign: {
+      type: Boolean,
+      default: true,
+    },
+  },
+};
+</script>
 
 <style scoped>
 :root {

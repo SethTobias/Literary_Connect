@@ -1,5 +1,6 @@
 <template>
   <div id="profile">
+    <Sign v-if="notSign"/>
     <div class="profile-dash">
       <div class="profile-pp"></div>
       <div class="profile-info">
@@ -33,3 +34,17 @@
     </div>
   </div>
 </template>
+<script>
+import Sign from "../components/Sign.vue"; 
+export default {
+  components: {
+    Sign,
+  },
+  props: {
+    notSign: {
+      type: Boolean,
+      default: true,
+    },
+  },
+};
+</script>

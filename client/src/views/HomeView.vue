@@ -1,5 +1,6 @@
 <template>
   <div id="home">
+<Sign v-if="notSign"/>
     <div if="home-container">
       <div class="home-card">
         <div class="card-header">
@@ -101,4 +102,17 @@
   </div>
 </template>
 
-<script></script>
+<script>
+import Sign from "../components/Sign.vue"; 
+export default {
+  components: {
+    Sign,
+  },
+  props: {
+    notSign: {
+      type: Boolean,
+      default: true,
+    },
+  },
+};
+</script>

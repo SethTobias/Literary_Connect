@@ -1,5 +1,6 @@
 <template>
   <div id="signup">
+<Sign v-if="notSign"/>
       <div class="signup-form">
         <div class="signup-img">
           <h1>Unlock A World Of Literary Connections.</h1>
@@ -22,7 +23,20 @@
     </div>
 </template>
 
-<script></script>
+<script>
+import Sign from "../components/Sign.vue"; 
+export default {
+  components: {
+    Sign,
+  },
+  props: {
+    notSign: {
+      type: Boolean,
+      default: false,
+    },
+  },
+};
+</script>
 
 <style scoped>
 :root {
