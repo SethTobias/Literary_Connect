@@ -119,10 +119,10 @@ const userController = {
   },
   getUserIDParam: async (req, res) => {
     try {
-      if (error) throw error;
       let { user_id } = +req.param.id;
       const user = await getUserID(user_id);
       res.status(200).json(user);
+      // if (error) throw error;
     } catch (error) {
       res.status(500).json({
         error:
@@ -132,10 +132,10 @@ const userController = {
   },
   getUserIDBody: async (req, res) => {
     try {
-      if (error) throw error;
       let { user_id } = +req.body;
       const user = await getUserID(user_id);
       res.status(200).json(user);
+      // if (error) throw error;
     } catch (error) {
       res.status(500).json({
         error: `Error in Retrieving User with user_id:${user_id} from the Database.`,
@@ -156,7 +156,7 @@ const userController = {
           return;
         }
         try {
-          if (error) throw error;
+          // if (error) throw error;
           if (!existingUser) {
             return res.status(400).json({
               msg: " The username or email has already been registered to the database.",
@@ -308,7 +308,7 @@ const userController = {
       let { following_id } = req.body;
       const following = await getFollowing(following_id);
       res.status(200).json(following);
-      if (error) throw error;
+      // if (error) throw error;
     } catch (error) {
       res.status(400).json({ msg: "This user does not exist" });
     }
@@ -318,7 +318,7 @@ const userController = {
       let { follower_id } = req.body;
       const followers = await getFollowers(follower_id);
       res.status(200).json(followers);
-      if (error) throw error;
+      // if (error) throw error;
     } catch (error) {
       res.status(400).json({ msg: "This user does not exist" });
     }

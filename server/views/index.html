@@ -6,6 +6,297 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Hello World?</h1>
+    <table>
+        <tr>
+          <td class="header" colspan="3">Static:</td>
+        </tr>
+        <tr>
+          <td>HTTP Methods</td>
+          <td>Path</td>
+          <td>Description</td>
+        </tr>
+        <tbody>
+          <tr>
+            <td>GET</td>
+            <td>/ (Home/Static Page)</td>
+            <td>
+              Path to Static Page detailing what each path is responsible for
+              handling in the routes.
+            </td>
+          </tr>
+  
+          <tr>
+            <td class="header" colspan="3">Users:</td>
+          </tr>
+          <tr>
+            <td>HTTP Methods</td>
+            <td>Path</td>
+            <td>Description</td>
+          </tr>
+          <tr>
+            <td>GET</td>
+            <td>/user</td>
+            <td>
+              Path is responsible for retrieving all users data within the API.
+            </td>
+          </tr>
+          <tr>
+            <td>GET</td>
+            <td>/user/A</td>
+            <td>
+              Path is responsible for retrieving a users data from the API
+              specifically by their userID, specified in the path.
+            </td>
+          </tr>
+          <tr>
+            <td>GET</td>
+            <td>/user/D</td>
+            <td>
+              Path is responsible for retrieving a users data from the API
+              specifically by their userID, specified in the path.
+            </td>
+          </tr>
+          <tr>
+            <td>GET</td>
+            <td>/user/TA</td>
+            <td>
+              Path is responsible for retrieving a users data from the API
+              specifically by their userID, specified in the path.
+            </td>
+          </tr>
+          <tr>
+            <td>GET</td>
+            <td>/user/TD</td>
+            <td>
+              Path is responsible for retrieving a users data from the API
+              specifically by their userID, specified in the path.
+            </td>
+          </tr>
+          <tr>
+            <td>GET</td>
+            <td>/user/review</td>
+            <td>
+              Path is responsible for retrieving a users data from the API
+              specifically by their userID, specified in the path.
+            </td>
+          </tr>
+          <tr>
+            <td>GET</td>
+            <td>/user/reported</td>
+            <td>
+              Path is responsible for retrieving a users data from the API
+              specifically by their userID, specified in the path.
+            </td>
+          </tr>
+            <td>GET</td>
+            <td>/user/login</td>
+            <td>
+              Path is responsible for retrieving a users data from the API
+              specifically by their userID, specified in the path.
+            </td>
+          </tr>
+          <tr>
+            <td>POST</td>
+            <td>/user/add</td>
+            <td>
+              Path is responsible for allowing new user data to be added into the API.
+            </td>
+          </tr>
+          <tr>
+            <td>PATCH/PUT</td>
+            <td>/user/edit</td>
+            <td>
+              Path is responsible for allowing data about the user to be altered
+              within the API.
+            </td>
+          </tr>
+          <tr>
+            <td>PATCH/PUT</td>
+            <td>/user/editType</td>
+            <td>
+              Path is responsible for allowing data about the user to be altered
+              within the API.
+            </td>
+          </tr>
+          <tr>
+            <td>PATCH/PUT</td>
+            <td>/user/report</td>
+            <td>
+              Path is responsible for allowing data about the user to be altered
+              within the API.
+            </td>
+          </tr>
+          <tr>
+            <td>DELETE</td>
+            <td>/user/delete</td>
+            <td>
+              Path is responsible for allowing data about the user to be deleted
+              from the API.
+            </td>
+          </tr>
+
+          <tr>
+            <td class="header" colspan="3">Users Follows:</td>
+          </tr>
+          <tr>
+            <td>HTTP Methods</td>
+            <td>Path</td>
+            <td>Description</td>
+          </tr>
+          <tr>
+            <td>GET</td>
+            <td>/user/follows</td>
+            <td>
+              Path is responsible for retrieving all users data within the API.
+            </td>
+          </tr>
+          <tr>
+            <td>GET</td>
+            <td>/user/following</td>
+            <td>
+              Path is responsible for retrieving a users data from the API
+              specifically by their userID, specified in the path.
+            </td>
+          </tr>
+          <tr>
+            <td>GET</td>
+            <td>/user/followers</td>
+            <td>
+              Path is responsible for retrieving a users data from the API
+              specifically by their userID, specified in the path.
+            </td>
+          </tr>
+          <tr>
+            <td>POST</td>
+            <td>/user/follow</td>
+            <td>
+              Path is responsible for allowing new user data to be added into the API.
+            </td>
+          </tr>
+          <tr>
+            <td>DELETE</td>
+            <td>/user/unfollow</td>
+            <td>
+              Path is responsible for allowing data about the user to be deleted
+              from the API.
+            </td>
+          </tr>
+
+          <tr>
+            <td class="header" colspan="3">Post:</td>
+          </tr>
+          <tr>
+            <td>HTTP Methods</td>
+            <td>Path</td>
+            <td>Description</td>
+          </tr>
+          <tr>
+            <td>GET</td>
+            <td>/post</td>
+            <td>
+              Path is responsible for retrieving all products data within the
+              API.
+            </td>
+          </tr>
+          <tr>
+            <td>POST</td>
+            <td>/post/add</td>
+            <td>
+              Path is responsible for allowing new product data to be added into
+              the API.
+            </td>
+          </tr>
+          <tr>
+            <td>PUT/PATCH</td>
+            <td>/post/edit</td>
+            <td>
+              Path is responsible for allowing data about the product to be
+              altered within the API.
+            </td>
+          </tr>
+          <tr>
+            <td>DELETE</td>
+            <td>/post/delete/</td>
+            <td>
+              Path is responsible for allowing data about the product to be
+              deleted from the API.
+            </td>
+          </tr>
+          <tr>
+            <td class="header" colspan="3">Post Likes:</td>
+          </tr>
+          <tr>
+            <td>HTTP Methods</td>
+            <td>Path</td>
+            <td>Description</td>
+          </tr>
+          <tr>
+            <td>GET</td>
+            <td>/post/like</td>
+            <td>
+              Path is responsible for retrieving all products data within the
+              API.
+            </td>
+          </tr>
+          <tr>
+            <td>POST</td>
+            <td>/post/like/add</td>
+            <td>
+              Path is responsible for allowing new product data to be added into
+              the API.
+            </td>
+          </tr>
+          <tr>
+            <td>DELETE</td>
+            <td>/post/like/delete/</td>
+            <td>
+              Path is responsible for allowing data about the product to be
+              deleted from the API.
+            </td>
+          </tr>
+
+          <tr>
+            <td class="header" colspan="3">Comment:</td>
+          </tr>
+          <tr>
+            <td>HTTP Methods</td>
+            <td>Path</td>
+            <td>Description</td>
+          </tr>
+          <tr>
+            <td>GET</td>
+            <td>/comment/:post_id</td>
+            <td>
+              Path is responsible for retrieving all products data within the
+              API.
+            </td>
+          </tr>
+          <tr>
+            <td>POST</td>
+            <td>/comment/add</td>
+            <td>
+              Path is responsible for allowing new product data to be added into
+              the API.
+            </td>
+          </tr>
+          <tr>
+            <td>PUT/PATCH</td>
+            <td>/comment/edit</td>
+            <td>
+              Path is responsible for allowing data about the product to be
+              altered within the API.
+            </td>
+          </tr>
+          <tr>
+            <td>DELETE</td>
+            <td>/comment/delete/</td>
+            <td>
+              Path is responsible for allowing data about the product to be
+              deleted from the API.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  
 </body>
 </html>
