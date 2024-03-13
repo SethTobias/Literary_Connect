@@ -2,17 +2,17 @@
   <div class="home">
     <Sign v-if="notSign" />
     <div class="home-container">
-      <div class="home-card">
+      <div class="home-card" v-for="item in $store.state.post" :key="item.id">
         <div class="card-header">
           <div class="pp">pp</div>
           <div>
-            <p><span>Profile Name </span>- Bookmark/Bookmarked</p>
-            <p>Posted n min/day/week ago</p>
+            <p><span>{{item.post_id}}</span></p>
+            <p>Posted {{item.created_at}}</p>
           </div>
           <i class="fa-solid fa-ellipsis-vertical"></i>
         </div>
         <div class="card-body">
-          <div class="card-data"></div>
+          <div class="card-data">{{item.content}}</div>
           <div class="card-indicators">
             <i class="fa-solid fa-circle-arrow-left"></i>
             <i class="fa-solid fa-circle-arrow-right"></i>
@@ -107,6 +107,14 @@ export default {
       default: true,
     },
   },
+  computed: {
+     getPost() {
+      this.$store.dispatch("getPost");
+    },
+  },
+  mounted() {
+    this.getPost; // *
+  }
 };
 </script>
 <style scoped>
@@ -123,6 +131,8 @@ export default {
   grid-area: post;
   /*  */
   background-color: black;
+   /*  */
+  overflow-y: scroll;
 }
 
 .home-card {
@@ -241,7 +251,7 @@ color: white;
 
 .home-dash {
   /*  */
-  grid-area: dash;
+  grid-area: dash; 
   /*  */
   background-color: gold;
 }
