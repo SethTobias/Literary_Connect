@@ -1,11 +1,12 @@
 <template>
+<!-- v-if="item in $store.state.user" -->
   <div id="profile">
-    <Sign v-if="notSign"/>
+  <Sign v-if="notSign"/>
     <div class="profile-dash">
       <div class="profile-pp"></div>
       <div class="profile-info">
         <div>
-          <p>Profile Name</p>
+          <p></p>
           <p>Edit Profile</p>
         </div>
         <div class="profile-data">
@@ -46,5 +47,49 @@ export default {
       default: true,
     },
   },
-};
+      computed: {
+    getUsers() {
+      this.$store.dispatch("getUsers");
+    },
+    getUser() {
+      this.$store.dispatch("getUser");
+    },
+    getReview() {
+      this.$store.dispatch("getReview");
+    },
+    getReported() {
+      this.$store.dispatch("getReported");
+    },
+    getFollows() {
+      this.$store.dispatch("getFollows");
+    },
+    getFollowing() {
+      this.$store.dispatch("getFollowing");
+    },
+    getFollower() {
+      this.$store.dispatch("getFollower");
+    },
+    getPost() {
+      this.$store.dispatch("getPost");
+    },
+    getLike() {
+      this.$store.dispatch("getLike");
+    },
+    getComment() {
+      this.$store.dispatch("getComment");
+    },
+  },
+  mounted() {
+    this.getUsers;
+    this.getUser; // *
+    this.getReview;
+    this.getReported;
+    this.getFollows; 
+    this.getFollowing; // *
+    this.getFollower; // *
+    this.getPost; // *
+    this.getLike;
+    this.getComment;
+  }
+}
 </script>
