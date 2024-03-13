@@ -1,59 +1,62 @@
 <template>
   <nav class="Navbar">
-    <div id="logo">
-      <router-link to="/">
-        <h1>Literary Connect</h1>
+    <div class="main-nav">
+      <div id="logo">
+        <router-link to="/">
+          <h1 class="collapse-txt">Literary Connect</h1>
 
-        <img src="https://i.ibb.co/f2FxRQ1/Logo-Light.png" alt="Website Logo" />
-        <!-- <img src="https://i.ibb.co/Z2ncByL/Logo-Dark.png" alt="Website Logo"> -->
+          <img
+            src="https://i.ibb.co/f2FxRQ1/Logo-Light.png"
+            alt="Website Logo"
+          />
+          <!-- <img src="https://i.ibb.co/Z2ncByL/Logo-Dark.png" alt="Website Logo"> -->
+        </router-link>
+      </div>
+      <router-link to="/" class="router-home">
+        <div class="home-icon">
+          <i class="fa-solid fa-location-pin"></i>
+          <i class="fa-solid fa-link"></i>
+        </div>
+        <span class="collapse-txt"> Home</span>
+      </router-link>
+      <p>
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <span class="collapse-txt"> Search</span>
+      </p>
+      <router-link to="/discover">
+        <i class="fa-solid fa-eye"></i>
+        <!-- <i class="fa-regular fa-eye"></i> -->
+        <span class="collapse-txt">Discover</span>
+      </router-link>
+      <router-link to="/links">
+        <i class="fa-solid fa-link"></i>
+        <span class="collapse-txt">Links</span>
+      </router-link>
+      <p>
+        <i class="fa-solid fa-comment-dots"></i>
+        <!-- <i class="fa-regular fa-comment-dots"></i> -->
+        <span class="collapse-txt">Conversations</span>
+      </p>
+      <p>
+        <i class="fa-solid fa-heart"></i>
+        <!-- <i class="fa-regular fa-heart"></i> -->
+        <span class="collapse-txt">Notifications</span>
+      </p>
+      <router-link to="/interact">
+        <i class="fa-solid fa-users"></i>
+        <span class="collapse-txt">Interact</span>
+      </router-link>
+      <router-link to="/profile">
+        <i class="fa-solid fa-id-badge"></i>
+        <!-- <i class="fa-regular fa-id-badge"></i> -->
+        <span class="collapse-txt">My Profile</span>
+      </router-link>
+      <router-link to="/settings">
+        <i class="fa-solid fa-gears"></i>
+        <span class="collapse-txt">Settings</span>
       </router-link>
     </div>
-    <router-link to="/">
-    <div class="route-home">
-      <div class="home-icon">
-       <i class="fa-solid fa-location-pin"></i>
-        <i class="fa-solid fa-link"></i>
-      </div>
-      Home
-      </div> 
-    </router-link>
-    <p>
-      <i class="fa-solid fa-magnifying-glass"></i>
-      Search
-      
-      </p>
-    <router-link to="/discover">
-    <i class="fa-solid fa-eye"></i>
-    <!-- <i class="fa-regular fa-eye"></i> -->
-    Discover
-    </router-link>
-    <router-link to="/links">
-    <i class="fa-solid fa-link"></i>
-    Links
-    </router-link>
-    <p>
-      <i class="fa-solid fa-comment-dots"></i>
-      <!-- <i class="fa-regular fa-comment-dots"></i> -->
-      Conversations
-      </p>
-    <p>
-      <i class="fa-solid fa-heart"></i>
-      <!-- <i class="fa-regular fa-heart"></i> -->
-    Notifications
-    </p>
-    <router-link to="/interact">
-    <i class="fa-solid fa-users"></i>
-    Interact
-    </router-link>
-    <router-link to="/profile">
-    <i class="fa-solid fa-id-badge"></i>
-    <!-- <i class="fa-regular fa-id-badge"></i> -->
-    My Profile
-    </router-link>
-    <router-link to="/settings">
-    <i class="fa-solid fa-gears"></i>
-    Settings
-    </router-link>
+    <div class="sub-nav"></div>
   </nav>
 </template>
 
@@ -72,7 +75,11 @@
   --accent: hsl(242, 93%, 62%);
 }
 
-nav {
+.sub-nav {
+  z-index: -1;
+}
+.main-nav,
+.sub-nav {
   /*  */
   background: var(--secondary);
   /*  */
@@ -91,36 +98,65 @@ nav {
   height: 99.32vh;
 }
 
-nav :is(a, p) {
+.main-nav :is(a, p) {
   /*  */
   color: var(--txt);
   text-decoration: none;
   font-weight: bold;
 }
 
-nav :is(p) {
+.main-nav :is(p) {
   cursor: pointer;
   margin: 0;
   padding: 0;
 }
 
-nav :is(i) {
+.main-nav :is(i) {
   cursor: pointer;
   margin: 0;
   padding: 0;
 }
 
-nav :is(i):active {
+.main-nav :is(i):active {
   color: var(--accent);
 }
 
-nav a.router-link-exact-active {
+.main-nav a.router-link-exact-active {
   color: var(--accent);
 }
 
-#logo {
-  
+.router-home {
+  display: flex;
+  place-content: center;
 }
+
+.home-icon {
+  display: grid;
+  grid: 1fr/ 1fr;
+  place-items: center;
+}
+.home-icon .fa-link {
+  grid-area: 1/1/2/2;
+  z-index: 2;
+  color: white;
+}
+.home-icon .fa-location-pin {
+  grid-area: 1/1/2/2;
+  scale: 1.5;
+}
+
+/* .main-nav {
+  width: 5%;
+}
+
+#logo img {
+  width: 50px;
+  place-self: center;
+}
+
+.main-nav .collapse-txt {
+  display: none;
+} */
 
 @media (prefers-color-scheme: light) {
   :root {

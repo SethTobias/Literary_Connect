@@ -60,7 +60,7 @@ export default {
   grid: 1fr / 1fr;
  }
  .discover-container .discover-post .post-content{
-  grid-area: 1/2/1/2;
+  grid-area: 1/1/2/2;
   background-color: red;
  }
  .discover-container .discover-post .post-content:hover{
@@ -70,18 +70,9 @@ export default {
    /* display: none; */
  }
  .discover-container .discover-post .post-info{
-   grid-area: 1/2/1/2;
+   grid-area: 1/1/2/2;
    z-index: -1;
  }
- .discover-container .post-info{
- }
+
  
- /* .discover-container .discover-post .post-info p span{
-  display: none;  
-  z-index: -2;
- }
- .discover-container .discover-post .post-info p span:hover {
-  z-index: 2;
-  color: aqua;
- } */
 </style>
