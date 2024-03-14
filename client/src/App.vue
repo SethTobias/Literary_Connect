@@ -1,32 +1,39 @@
 <template>
-  <Navbar id="nav"/>
-  <router-view id="content"/>
+  <Navbar id="nav" />
+  <router-view id="content" />
 </template>
 
 <script>
-import Navbar from "./components/Navbar.vue"
+import Navbar from "./components/Navbar.vue";
 export default {
   components: {
     Navbar,
-  }
-}
+  },
+};
 </script>
 
 <style>
-    :root {
-       --txt: hsl(180, 44%, 7%);
-       --bg: hsl(180, 40%, 98%);
-       --primary: hsl(180, 66%, 53%);
-       --secondary: hsl(223, 65%, 71%);
-       --accent: hsl(242, 93%, 62%);
-       --typography: "Eagle Lake", serif;
-     }
+:root {
+  /*  */
+  --txt: hsl(180, 44%, 7%);
+  --bg: hsl(180, 40%, 98%);
+  --primary: hsl(180, 66%, 53%);
+  --secondary: hsl(223, 65%, 71%);
+  --accent: hsl(242, 93%, 62%);
+  /*  */
+  --typography: "Eagle Lake", serif;
+  --fs-30: 3rem;
+  --fs-25: 2.5rem;
+  --fs-20: 2rem;
+  --fs-15: 1.5rem;
+  --fs-10: 1rem;
+}
 
-     * {
-      /*  */
-      font-family: var(--typography);
-      color: var(--txt);
-     }
+* {
+  /*  */
+  font-family: var(--typography);
+  color: var(--txt);
+}
 
 #app {
   text-align: center;
@@ -36,7 +43,7 @@ export default {
 }
 
 #nav {
- grid-area: nav;
+  grid-area: nav;
 }
 
 #content {

@@ -68,11 +68,17 @@
 
 <style scoped>
 :root {
+  /*  */
   --txt: hsl(180, 44%, 7%);
   --bg: hsl(180, 40%, 98%);
   --primary: hsl(180, 66%, 53%);
   --secondary: hsl(223, 65%, 71%);
   --accent: hsl(242, 93%, 62%);
+  /*  */
+  --fs30: 30px;
+  --fs25: 25px;
+  --fs15: 15px;
+  --fs10: 10px;
 }
 
 .sub-nav {
