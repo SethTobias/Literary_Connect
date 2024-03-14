@@ -1,13 +1,14 @@
 <template>
   <nav class="Navbar">
-    <div class="main-nav">
+    <div class="main-nav" :style="dynamicWidth">
       <div id="logo">
         <router-link to="/">
-          <h1 class="collapse-txt">Literary Connect</h1>
+          <h1 class="collapse-txt" :style="dynamicText">Literary Connect</h1>
 
           <img
             src="https://i.ibb.co/f2FxRQ1/Logo-Light.png"
             alt="Website Logo"
+            :style="dynamicLogo"
           />
           <!-- <img src="https://i.ibb.co/Z2ncByL/Logo-Dark.png" alt="Website Logo"> -->
         </router-link>
@@ -17,43 +18,43 @@
           <i class="fa-solid fa-location-pin"></i>
           <i class="fa-solid fa-link"></i>
         </div>
-        <span class="collapse-txt"> Home</span>
+        <span class="collapse-txt" :style="dynamicText"> Home</span>
       </router-link>
-      <p>
+      <p @click="toggleStyles">
         <i class="fa-solid fa-magnifying-glass"></i>
-        <span class="collapse-txt"> Search</span>
+        <span class="collapse-txt" :style="dynamicText"> Search</span>
       </p>
       <router-link to="/discover">
         <i class="fa-solid fa-eye"></i>
         <!-- <i class="fa-regular fa-eye"></i> -->
-        <span class="collapse-txt">Discover</span>
+        <span class="collapse-txt" :style="dynamicText">Discover</span>
       </router-link>
       <router-link to="/links">
         <i class="fa-solid fa-link"></i>
-        <span class="collapse-txt">Links</span>
+        <span class="collapse-txt" :style="dynamicText">Links</span>
       </router-link>
-      <p>
+      <p  @click="toggleStyles">
         <i class="fa-solid fa-comment-dots"></i>
         <!-- <i class="fa-regular fa-comment-dots"></i> -->
-        <span class="collapse-txt">Conversations</span>
+        <span class="collapse-txt"  :style="dynamicText">Conversations</span>
       </p>
-      <p>
+      <p  @click="toggleStyles">
         <i class="fa-solid fa-heart"></i>
         <!-- <i class="fa-regular fa-heart"></i> -->
-        <span class="collapse-txt">Notifications</span>
+        <span class="collapse-txt"  :style="dynamicText">Notifications</span>
       </p>
       <router-link to="/interact">
         <i class="fa-solid fa-users"></i>
-        <span class="collapse-txt">Interact</span>
+        <span class="collapse-txt" :style="dynamicText">Interact</span>
       </router-link>
       <router-link to="/profile">
         <i class="fa-solid fa-id-badge"></i>
         <!-- <i class="fa-regular fa-id-badge"></i> -->
-        <span class="collapse-txt">My Profile</span>
+        <span class="collapse-txt" :style="dynamicText">My Profile</span>
       </router-link>
       <router-link to="/settings">
         <i class="fa-solid fa-gears"></i>
-        <span class="collapse-txt">Settings</span>
+        <span class="collapse-txt" :style="dynamicText">Settings</span>
       </router-link>
     </div>
     <div class="sub-nav"></div>
@@ -61,9 +62,34 @@
 </template>
 
 <script>
-// export default {
-//   name: 'Navbar',
-// }
+export default {
+  data() {
+    return {
+      dynamicWidth: {
+        width: "25%"
+      },
+        dynamicLogo: {
+            width: "auto"
+
+        },
+        dynamicText: {
+            display: ""
+
+        },
+      isStylesApplied: true,
+    };
+  },
+  methods: {
+    toggleStyles() {
+      this.isStylesApplied = !this.isStylesApplied;
+      this.dynamicWidth = this.isStylesApplied
+        ? { width: "25%"}
+        : { width: "5%"};
+      this.dynamicLogo = this.isStylesApplied ? {width: "auto"} : {width: "50px"};
+      this.dynamicText = this.isStylesApplied ? {display: ""} : {display: "none"};
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -75,10 +101,12 @@
   --secondary: hsl(223, 65%, 71%);
   --accent: hsl(242, 93%, 62%);
   /*  */
-  --fs30: 30px;
-  --fs25: 25px;
-  --fs15: 15px;
-  --fs10: 10px;
+  --typography: "Eagle Lake", serif;
+  --fs-30: 3rem;
+  --fs-25: 2.5rem;
+  --fs-20: 2rem;
+  --fs-15: 1.5rem;
+  --fs-10: 1rem;
 }
 
 .sub-nav {
@@ -93,6 +121,7 @@
   top: 0;
   left: 0;
   width: 25%;
+  display: contents;
   /*  */
   display: flex;
   flex-direction: column;
@@ -151,18 +180,15 @@
   scale: 1.5;
 }
 
-/* .main-nav {
-  width: 5%;
-}
 
-#logo img {
-  width: 50px;
-  place-self: center;
+
+/* #logo img {
+
 }
 
 .main-nav .collapse-txt {
   display: none;
-} */
+}  */
 
 @media (prefers-color-scheme: light) {
   :root {
