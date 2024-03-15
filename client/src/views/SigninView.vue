@@ -26,7 +26,7 @@ export default {
   props: {
     notSign: {
       type: Boolean,
-      default: true,
+      default: false,
     },
   },
 };

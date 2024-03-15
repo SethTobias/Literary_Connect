@@ -52,9 +52,12 @@
         <!-- <i class="fa-regular fa-id-badge"></i> -->
         <span class="collapse-txt" :style="dynamicText">My Profile</span>
       </router-link>
-      <router-link to="/settings">
+      
+      <router-link to="/admin" :v-if="$store.state.userType=='Admin'">
         <i class="fa-solid fa-gears"></i>
-        <span class="collapse-txt" :style="dynamicText">Settings</span>
+        <span class="collapse-txt" :style="dynamicText">Admin</span>
+        <!-- <i class="fa-regular fa-id-badge"></i> -->
+        <span class="collapse-txt" :style="dynamicText">My Profile</span>
       </router-link>
     </div>
     <div class="sub-nav"></div>
@@ -79,16 +82,26 @@ export default {
       isStylesApplied: true,
     };
   },
+  computed: {
+        getUsers() {
+      this.$store.dispatch("getUsers");
+    },
+    getUser() {
+      this.$store.dispatch("getUser");
+    },
+  },
   methods: {
     toggleStyles() {
       this.isStylesApplied = !this.isStylesApplied;
-      this.dynamicWidth = this.isStylesApplied
-        ? { width: "25%"}
-        : { width: "5%"};
+      this.dynamicWidth = this.isStylesApplied ? { width: "25%"} : { width: "5%"};
       this.dynamicLogo = this.isStylesApplied ? {width: "auto"} : {width: "50px"};
       this.dynamicText = this.isStylesApplied ? {display: ""} : {display: "none"};
     },
   },
+  mounted() {
+     this.getUsers;
+    this.getUser;
+  }
 };
 </script>
 

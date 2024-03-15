@@ -7,7 +7,7 @@ export default createStore({
     userReview: [],
     userReported: [],
     loggedIn: [],
-    follows: [],
+    follow: [],
     following: [],
     follower: [],
     post: [],

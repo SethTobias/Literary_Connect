@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import AdminView from "../views/AdminView.vue";
 import DiscoverView from "../views/DiscoverView.vue";
 import LinksView from "../views/LinksView.vue";
 import InteractView from "../views/InteractView.vue";
@@ -10,9 +11,14 @@ import SigninView from "../views/SigninView.vue";
 
 const routes = [
   {
-    path: "/",
+    path: "/:user_id",
     name: "home",
     component: HomeView,
+  },
+  {
+    path: "/admin/user:id",
+    name: "admin",
+    component: AdminView,
   },
   {
     path: "/discover",
@@ -25,7 +31,7 @@ const routes = [
     component: InteractView,
   },
   {
-    path: "/profile",
+    path: "/profile/:user_id",
     name: "profile",
     component: ProfileView,
   },
