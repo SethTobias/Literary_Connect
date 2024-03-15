@@ -51,6 +51,7 @@ const chatController = {
       res.status(500).json({ error: "Internal Server Error" });
     }
   },
+  
   //
   resetChats: async (req, res) => {
     try {

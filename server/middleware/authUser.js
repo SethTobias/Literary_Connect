@@ -3,7 +3,7 @@ import { config } from "dotenv";
 config();
 
 // Middleware to verify JWT from cookies
-// ? Revisit this as token doesn't seem to be setting properly
+
 const verifyToken = (req, res, next) => {
   const token = req.headers.authorization;
 
@@ -17,7 +17,6 @@ const verifyToken = (req, res, next) => {
       return res.status(401).json({ msg: "Unauthorized" });
     }
 
-    // Token is valid, attach user information to the request
     req.user = decoded;
     next();
   });

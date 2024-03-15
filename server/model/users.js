@@ -52,12 +52,14 @@ const getReaders = async () => {
     `);
   return readers;
 };
-const getWriters = async () => {
-  let [writers] = await pool.query(`
-    SELECT * FROM users WHERE userType = "Writer" ORDER BY username
-    `);
-  return writers;
-};
+
+// const getWriters = async () => {
+//   let [writers] = await pool.query(`
+//     SELECT * FROM users WHERE userType = "Writer" ORDER BY username
+//     `);
+//   return writers;
+// };
+
 const getCurators = async () => {
   let [curators] = await pool.query(`
     SELECT * FROM users WHERE userType = "Curator" ORDER BY username
@@ -166,6 +168,16 @@ const alterUserData = async (
   return alteredUser;
 };
 
+const alterUserAdmin = async (userStatus, username) => {
+  const alteredStatus = await pool.query(
+    `
+    UPDATE users SET userStatus=? WHERE (username = ?)
+    `,
+    [userStatus, username]
+  );
+  return alteredStatus;
+};
+
 const alterUserType = async (userType, username) => {
   const alteredStatus = await pool.query(
     `
@@ -175,6 +187,7 @@ const alterUserType = async (userType, username) => {
   );
   return alteredStatus;
 };
+
 const reportUser = async (username) => {
   const reportedUser = await pool.query(
     `
@@ -267,6 +280,7 @@ export {
   follow,
   reportUser,
   //
+  alterUserAdmin,
   alterUserData,
   alterUserType,
   //

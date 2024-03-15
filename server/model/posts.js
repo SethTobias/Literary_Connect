@@ -8,43 +8,48 @@ config();
 */
 const getPosts = async () => {
   let [posts] = await pool.query(`
-    SELECT * FROM posts
+    SELECT posts.*,users.* FROM posts LEFT JOIN users ON posts.user_id = users.user_id
     `);
   return posts;
 };
-const getUserPosts = async () => {
+
+const getUserPosts = async (user_id) => {
   let [posts] = await pool.query(`
-    SELECT *,COUNT(*) FROM posts WHERE (user_id=?)
-    `);
+    SELECT posts.*,users.* FROM posts LEFT JOIN users ON posts.user_id = users.user_id WHERE (user_id=?)
+    `,[user_id]);
   return posts;
 };
+
 const getPost = async (post_id) => {
   let [post] = await pool.query(
     `
-    SELECT * FROM posts WHERE post_id=?
+    SELECT posts.*,users.* FROM posts LEFT JOIN users ON posts.user_id = users.user_id WHERE post_id=? 
     `,
     [post_id]
   );
   return post;
 };
-const putPost = async (user_id,content,caption) => {
+
+const putPost = async (user_id,post_url,caption) => {
   let [post] = await pool.query(
     `
-    INSERT INTO posts (user_id,content,caption) VALUES (?,?,?)
+    INSERT INTO posts (user_id,post_url,caption) VALUES (?,?,?)
     `,
-    [user_id,content,caption]
+    [user_id,post_url,caption]
   );
   return post
 };
-const editPost = async (content,caption,post_id) => {
+
+const editPost = async (caption,post_id) => {
   let [alteredPost] = await pool.query(
     `
-    UPDATE SET content=?,caption=? WHERE (post_id=?)
+    UPDATE SET caption=? WHERE (post_id=?)
     `,
-    [content,caption,post_id]
+    [caption,post_id]
   );
   return alteredPost
 };
+
 const deletePost = async (post_id) => {
   await pool.query(
     `
@@ -59,7 +64,7 @@ const deletePost = async (post_id) => {
 */
 const getLikes = async (post_id) => {
   let [likes] = await pool.query(`
-      SELECT * FROM post_likes WHERE post_id=?
+      SELECT post_likes.*,posts.*,users.* FROM post_likes LEFT JOIN posts ON post_likes.post_id=posts.post_id LEFT JOIN users ON posts.user_id=users.user_id WHERE post_id=?
       `,[post_id]);
   return likes;
 };
