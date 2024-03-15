@@ -15,10 +15,10 @@ const router = express.Router();
 
 //
 router.route("/user").get(userController.getUsers);
-router.route("/user/A").get(userController.getUsersAUN);
-router.route("/user/D").get(userController.getUsersDUN);
-router.route("/user/TA").get(userController.getUsersTypeA);
-router.route("/user/TD").get(userController.getUsersTypeD);
+// router.route("/user/A").get(userController.getUsersAUN);
+// router.route("/user/D").get(userController.getUsersDUN);
+// router.route("/user/TA").get(userController.getUsersTypeA);
+// router.route("/user/TD").get(userController.getUsersTypeD);
 router.route("/user/review").get(userController.getReview);
 router.route("/user/reported").get(userController.getReported);
 // router.route("/user/:id").get(userController.getUserIDParam);
