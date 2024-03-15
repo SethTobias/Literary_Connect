@@ -52,8 +52,7 @@
         <!-- <i class="fa-regular fa-id-badge"></i> -->
         <span class="collapse-txt" :style="dynamicText">My Profile</span>
       </router-link>
-      
-      <router-link to="/admin" :v-if="$store.state.userType=='Admin'">
+      <router-link to="/admin" :v-if="$store.state.userType=='Curator'">
         <i class="fa-solid fa-gears"></i>
         <span class="collapse-txt" :style="dynamicText">Admin</span>
         <!-- <i class="fa-regular fa-id-badge"></i> -->
