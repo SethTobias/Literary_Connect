@@ -1,43 +1,59 @@
 <template>
-<!-- v-if="item in $store.state.user" -->
   <div id="profile">
-  <Sign v-if="notSign"/>
+    <Sign v-if="notSign" />
     <div class="profile-dash">
       <div class="profile-pp"></div>
       <div class="profile-info">
-        <div>
-          <p></p>
-          <p>Edit Profile</p>
-        </div>
         <div class="profile-data">
-          <p>n posts</p>
-          <p>n bookmarks</p>
-          <p>n bookmarked</p>
+          <p>{{ $store.state.userPost.length }}</p>
+          <p>{{ $store.state.userFollowers.length }}</p>
+          <p>{{ $store.state.userFollowers.length }}</p>
         </div>
-        <div class="profile-bio">
-          <p>Biography</p>
-        </div>
+         <div class="dropdown">
+    <i class="fa-solid fa-gears" @click="toggleDropdown"></i>
+    <div class="dropdown-menu" :class="{ show: isDropdownOpen }">
+      <div class="dropdown-item" @click="openEditUser()">Edit User</div>
+      <div class="editModal" :style="openEditUser">
+        <input type="text">
+        <input type="text">
+        <input type="text">
+        <input type="text">
+        <input type="text">
+        <input type="button" value="Submit">
+      </div>
+      <div @click="deleteUser">
+        Delete
       </div>
     </div>
-    <div>WorkInProgress</div>
+  </div>
+      </div>
+    </div>
     <div class="profile-overview">
       <div class="overview-dash">
-        <div>Your Posts</div>
-        <div>Shelved</div>
-        <div>Marks</div>
-      </div>
-      <div class="overview-container">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+        <h3>User Post</h3>
+        <div
+          class="post-container"
+          v-for="item in $store.state.userPost"
+          :key="item.id"
+        >
+          <router-link
+            :to="{ name: 'Single', params: { post_id: item.post_id } }"
+          >
+            <img :src="item.post_url" />
+          </router-link>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import Sign from "../components/Sign.vue"; 
+import Sign from "../components/Sign.vue";
 export default {
+   data() {
+    return {
+      isDropdownOpen: false
+    };
+  },
   components: {
     Sign,
   },
@@ -47,21 +63,9 @@ export default {
       default: true,
     },
   },
-      computed: {
-    getUsers() {
-      this.$store.dispatch("getUsers");
-    },
+  computed: {
     getUser() {
       this.$store.dispatch("getUser");
-    },
-    getReview() {
-      this.$store.dispatch("getReview");
-    },
-    getReported() {
-      this.$store.dispatch("getReported");
-    },
-    getFollows() {
-      this.$store.dispatch("getFollows");
     },
     getFollowing() {
       this.$store.dispatch("getFollowing");
@@ -69,27 +73,43 @@ export default {
     getFollower() {
       this.$store.dispatch("getFollower");
     },
-    getPost() {
-      this.$store.dispatch("getPost");
-    },
-    getLike() {
-      this.$store.dispatch("getLike");
-    },
-    getComment() {
-      this.$store.dispatch("getComment");
-    },
+    // getUsers() {
+    //   this.$store.dispatch("getUsers");
+    // },
+    // getReview() {
+    //   this.$store.dispatch("getReview");
+    // },
+    // getReported() {
+    //   this.$store.dispatch("getReported");
+    // },
+    // getFollows() {
+    //   this.$store.dispatch("getFollows");
+    // },
+    // },
+    // getPost() {
+    //   this.$store.dispatch("getPost");
+    // },
+    // getLike() {
+    //   this.$store.dispatch("getLike");
+    // },
+    // getComment() {
+    //   this.$store.dispatch("getComment");
+    // },
   },
-  mounted() {
-    this.getUsers;
-    this.getUser; // *
-    this.getReview;
-    this.getReported;
-    this.getFollows; 
-    this.getFollowing; // *
-    this.getFollower; // *
-    this.getPost; // *
-    this.getLike;
-    this.getComment;
-  }
+ mounted() {
+  this.getUser();
+  this.getFollowing();
+  this.getFollower();
+},
+
+methods: {
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  },
+  openEditUser() {
+   this.isModalOpen = false;
+  },
 }
+};
 </script>
+<style scoped></style>

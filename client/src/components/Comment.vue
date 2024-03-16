@@ -1,12 +1,22 @@
 <template>
-  <div id="comment">
-   <div class="comment-pp"></div>
-   <p>Profile Name <span>n hours</span></p>
-   <p>Comment Text</p>
-   <p><span>n likes</span> Replay</p>
+  <div id="comment" v-for="item in $store.state.comment" :key="item.comment_id">
+   <div class="comment-pp">
+    <img :src="item.user_pp" alt="">
+   </div>
+   <p>{{item.username}}<span>{{item.created_at}}</span></p>
+   <p>{{item.comment_text}}</p>
   </div>
 </template>
 <script>
-export default {};
+export default {
+  computed: {
+    getComment() {
+      this.$store.dispatch("getComment");
+    },
+  },
+  mounted() {
+    this.getComment;
+  },
+};
 </script>
 <style scoped></style>

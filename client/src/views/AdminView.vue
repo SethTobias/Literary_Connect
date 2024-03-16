@@ -2,7 +2,7 @@
   <div class="admin">
     <div class="users">
       <table>
-        <tr v-for="item in $store.state.user" :key="item.id">
+        <tr v-for="item in $store.state.user" :key="item.user_id">
           <td>{{ item.user_id }}</td>
           <td>{{ item.firstName }}</td>
           <td>{{ item.lastName }}</td>
@@ -26,7 +26,7 @@
     </div>
     <div class="follows">
       <table>
-        <tr v-for="item in $store.state.follow" :key="item.id">
+        <tr v-for="item in $store.state.follow" :key="item.follow_id">
           <td>{{ item.follow_id }}</td>
           <td>{{ item.follower_id }}</td>
           <td>{{ item.following_id }}</td>
@@ -42,7 +42,7 @@
     </div>
     <div class="posts">
       <table>
-        <tr v-for="item in $store.state.post" :key="item.id">
+        <tr v-for="item in $store.state.post" :key="item.post_id">
           <td>{{ item.post_id }}</td>
           <td>{{ item.post_url }}</td>
           <td>{{ item.caption }}</td>
@@ -60,7 +60,7 @@
     </div>
     <div class="post_likes">
       <table>
-        <tr v-for="item in $store.state.like" :key="item.id">
+        <tr v-for="item in $store.state.like" :key="item.like_id">
           <td>{{ item.like_id }}</td>
           <td>{{ item.post_id }}</td>
           <td>{{ item.user_id }}</td>
@@ -77,7 +77,7 @@
     </div>
     <div class="comments">
       <table>
-        <tr v-for="item in $store.state.comment" :key="item.id">
+        <tr v-for="item in $store.state.comment" :key="item.comment_id">
           <td>{{ item.comment_id }}</td>
           <td>{{ item.comment_text }}</td>
           <td>{{ item.post_id }}</td>
@@ -158,9 +158,9 @@ export default {
     updateComment(comment_id) {
       let alteredComment = {
         comment_id: comment_id,
-    comment_text: this.comment_text,
-    post_id: post_id,
-    user_id: user_id,
+        comment_text: this.comment_text,
+        post_id: post_id,
+        user_id: user_id,
       };
       this.$store.dispatch("updateComment", alteredComment);
       window.location.reload();
@@ -181,7 +181,6 @@ export default {
       this.$store.dispatch("deleteLike", this.data);
     },
   },
-  },
   mounted() {
     this.getUsers;
     this.getFollows;
@@ -189,6 +188,6 @@ export default {
     this.getLike;
     this.getComment;
   },
-  }
+};
 </script>
 <style scoped></style>

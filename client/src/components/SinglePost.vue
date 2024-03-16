@@ -1,5 +1,5 @@
 <template>
-  <div id="single">
+  <div id="single" v-for="item in $store.state.post" :key="item.post_id">
     <div class="single-img">
       <div class="single-indicators">
         <i class="fa-solid fa-circle-arrow-left"></i>
@@ -11,9 +11,9 @@
         <div></div>
         <div>
           <p>
-            Profile Name - <span class="bookmark">Bookmark/Bookmarked </span>
+            {{item.username}}
           </p>
-          <p>Posted n min/day/week ago</p>
+          <p>{{item.created_at}}</p>
         </div>
         <i class="fa-solid fa-ellipsis-vertical"></i>
       </div>
@@ -41,19 +41,34 @@
       </div>
     </div>
     <div class="info-comment">
-      <p>Caption...</p>
-      <div class="comments-container"></div>
+      <div class="comments-container">
+        <Comment/>
+      </div>
       <div class="comment-input">
         <div class="comment-icon">
           <i class="fa-solid fa-comment"></i>
           <i class="fa-solid fa-plus"></i>
         </div>
-        <input type="text" placeholder="Add a Comment" />
+        <input type="text" placeholder="Add a Comment"/>
       </div>
     </div>
   </div>
 </template>
 <script>
-export default {};
+import Comment from "../components/Comment.vue"
+export default {
+  computed: {
+    getPostId() {
+      this.$store.dispatch("getPostId");
+    },
+    getComment() {
+      this.$store.dispatch("getComment");
+    },
+  },
+  mounted() {
+    this.getPostId;
+    this.getComment;
+  },
+};
 </script>
 <style scoped></style>
