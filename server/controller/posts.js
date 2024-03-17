@@ -31,23 +31,25 @@ const postController = {
     }
   },
   getUserPosts: async (req, res) => {
-    let { user_id } = req.body;
+    let { user_id } = +req.params.id;
     let posts = await getUserPosts(user_id);
     res.status(200).json(posts);
   },
   getPost: async (req, res) => {
-    let { post_id } = req.body;
+    let { post_id } = +req.param.id;
     let post = await getPost(post_id);
     res.status(200).json(post);
   },
   putPost: async (req, res) => {
-    let { user_id, content, caption } = req.body;
+    let { user_id } = req.params.id
+    let { content, caption } = req.body;
 
     let post = await putPost(user_id, content, caption);
     res.status(201).json(post);
   },
   editPost: async (req, res) => {
-    let { content, caption, post_id } = req.body;
+    let { post_id } = req.params.id
+    let { content, caption  } = req.body;
     const [post] = await getPost(post_id);
     content ? (content = content) : ({ content } = post);
     caption ? (caption = caption) : ({ caption } = post);
@@ -62,7 +64,7 @@ const postController = {
   // ?
   getLikes: async (req, res) => {
     try {
-      let post_id = req.body;
+      let post_id = +req.params.id;
       const likes = await getLikes(post_id);
       res.status(200).json(likes);
     } catch (error) {
@@ -71,7 +73,7 @@ const postController = {
     }
   },
   putLike: async (req, res) => {
-    let { user_id, post_id } = req.body;
+    let { user_id, post_id } = req.params.id;
     let like = putLike(user_id, post_id);
     res.status(200).json(like);
   },

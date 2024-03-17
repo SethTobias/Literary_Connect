@@ -29,44 +29,38 @@ app.use(cookieParser());
 
 // 
 app.use('/',userRouter)
-app.use("/A",userRouter)
-app.use("/D",userRouter)
-app.use("/TA",userRouter)
-app.use("/TD",userRouter)
-app.use("/review",userRouter)
-app.use("/reported",userRouter)
-app.use('/login',userRouter)
-app.use('/editType',userRouter)
-app.use('/report',userRouter)
+app.use('/:user_id',userRouter)
 app.use('/add',userRouter)
-app.use('/delete',userRouter)
-// app.use('/reset',userRouter)
+app.use('/login',userRouter)
+app.use('/edit/:user_id',userRouter)
+app.use('/editType/:user_id',userRouter)
+app.use('admin/edit/:user_id',userRouter)
+app.use('/report',userRouter)
+app.use('/delete/:user_id',userRouter)
 //
-app.use('/following',userRouter).get
-app.use('/followers',userRouter).get
-app.use('/follow',userRouter).post
-app.use('/unfollow',userRouter).delete
+app.use('/follows',userRouter).get
+app.use('/following/:user_id',userRouter).get
+app.use('/followers/:user_id',userRouter).get
+app.use('/follow/:user_id',userRouter).post
+app.use('/unfollow/:user_id',userRouter).delete
 // 
 app.use('/',postRouter)
-app.use('/add',postRouter)
-app.use('/edit',postRouter)
-app.use('/delete',postRouter)
-//
-app.use('/like',postRouter)
-app.use('/like/add',postRouter)
-app.use('/like/delete',postRouter)
-// app.use('/reset',postRouter)
-
+app.use('/:post_id',postRouter)
+app.use('/:user_id',postRouter)
+app.use('/add/:user_id',postRouter)
+app.use('/edit/:post_id',postRouter)
+app.use('/delete/:post_id',postRouter)
+app.use('/like/add/:post_id/:user_id',postRouter)
+app.use('/like/delete/:like_id',postRouter)
 
 // 
-app.use('/',commentRouter)
-app.use('/add',commentRouter)
-app.use('/edit',commentRouter)
-app.use('/delete',commentRouter)
+app.use('/:post_id',commentRouter)
+app.use('/add/:post_id/:user_id',commentRouter)
+app.use('/edit/:comment_id',commentRouter)
+app.use('/delete/:comment_id',commentRouter)
 // app.use('/reset',commentRouter)
 
 // 
-app.use('/',chatRouter)
 app.use('/',chatRouter)
 app.use('/',chatRouter)
 app.use('/add',chatRouter)

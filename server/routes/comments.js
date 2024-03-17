@@ -12,9 +12,9 @@ const router = express.Router();
 
 //
 router.route("/comment/:post_id").get(commentController.getComments);
-router.route("/comment/add").post(commentController.putComment);
-router.route("/comment/edit").patch(commentController.editComment);
-router.route("/comment/delete").delete(commentController.deleteComment);
+router.route("/comment/add/:post_id/:user_id").post(commentController.putComment);
+router.route("/comment/edit/:comment_id").patch(commentController.editComment);
+router.route("/comment/delete/:comment_id").delete(commentController.deleteComment);
 // router.route("/reset").delete(commentController.resetComments);
 
 export default router;

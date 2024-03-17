@@ -21,12 +21,14 @@ const commentController = {
     }
   },
   putComment: async (req, res) => {
-    let { user_id, post_id, comment_text } = req.body;
+    let { user_id, post_id } = req.params.id
+    let {  comment_text } = req.body;
     let comment = await putComment(user_id, post_id, comment_text);
     res.status(200).json(comment);
   },
   editComment: async (req, res) => {
-    let { comment_text, comment_id } = req.body;
+    let { comment_id } = req.params.id
+    let { comment_text } = req.body;
     const [comment] = await getComment(comment_id);
     comment_text ? (comment_text = comment_text) : ({ comment_text } = comment);
     let alteredComment = await editComment(comment_text, comment_id);

@@ -2,17 +2,8 @@
 import {
   //
   getUsers,
-  getUsersAUN,
-  getUsersDUN,
   getUserID,
   getHash,
-  getTypeASC,
-  getTypeDESC,
-  getStatusASC,
-  getStatusDESC,
-  getReaders,
-  getWriters,
-  getCurators,
   getUnderReview,
   getReported,
   getUser,
@@ -49,7 +40,8 @@ const userController = {
       // if (error) throw error;
     } catch (error) {
       res
-        .status(500).json({ error: "Error in Retrieving Users from the Database." });
+        .status(500)
+        .json({ error: "Error in Retrieving Users from the Database." });
     }
   },
   // getUsersAUN: async (req, res) => {
@@ -96,38 +88,36 @@ const userController = {
   //       .json({ error: "Error in Retrieving Users type from the Database." });
   //   }
   // }, // ?Can come back if you find it necessary to implement additional type functions. Also with user status functions.
-  getReview: async (req, res) => {
-    try {
-      // if (error) throw error;
-      const users = await getUnderReview();
-      res.status(200).json(users);
-    } catch (error) {
-      res
-        .status(500)
-        .json({ error: "Error in Retrieving Users from the Database." });
-    }
-  },
-  getReported: async (req, res) => {
-    try {
-      // if (error) throw error;
-      const users = await getReported();
-      res.status(200).json(users);
-    } catch (error) {
-      res
-        .status(500)
-        .json({ error: "Error in Retrieving Users from the Database." });
-    }
-  },
+  // getReview: async (req, res) => {
+  //   try {
+  //     // if (error) throw error;
+  //     const users = await getUnderReview();
+  //     res.status(200).json(users);
+  //   } catch (error) {
+  //     res
+  //       .status(500)
+  //       .json({ error: "Error in Retrieving Users from the Database." });
+  //   }
+  // },
+  // getReported: async (req, res) => {
+  //   try {
+  //     // if (error) throw error;
+  //     const users = await getReported();
+  //     res.status(200).json(users);
+  //   } catch (error) {
+  //     res
+  //       .status(500)
+  //       .json({ error: "Error in Retrieving Users from the Database." });
+  //   }
+  // },
   getUserID: async (req, res) => {
     try {
       let { user_id } = +req.param.id;
       const user = await getUserID(user_id);
       res.status(200).json(user);
-      // if (error) throw error;
     } catch (error) {
       res.status(500).json({
-        error:
-          "Error in Retrieving User with user_id:${user_id} from the Database.",
+        error: `Error in Retrieving User with user_id:${user_id} from the Database.`,
       });
     }
   },
@@ -135,29 +125,33 @@ const userController = {
   putUser: async (req, res) => {
     try {
       const { firstName, lastName, username, email, password } = req.body;
-      
+
       // Check if user already exists
       const existingUser = await checkUsers(username, email);
-      
       // If user already exists, return error
       if (existingUser) {
         return res.status(400).json({
           msg: "The username or email has already been registered to the database.",
         });
       }
-
       // Hash the password
       bcrypt.hash(password, 10, async (error, hash) => {
         if (error) {
           console.error("Error hashing password:", error);
           return res.status(500).json({
-            error: "Internal Server Error. When attempting to hash user's password.",
+            error:
+              "Internal Server Error. When attempting to hash user's password.",
           });
         }
-        
         try {
           // Add the user to the database
-          const newUser = await putUser(firstName, lastName, username, email, hash);
+          const newUser = await putUser(
+            firstName,
+            lastName,
+            username,
+            email,
+            hash
+          );
           return res.status(201).json(newUser);
         } catch (error) {
           console.error("Error in putUser:", error);
@@ -172,61 +166,64 @@ const userController = {
         msg: "An error occurred while processing your request. User was not added.",
       });
     }
-},
+  },
 
   editUser: async (req, res) => {
-    let { firstName, lastName, email, newUsername, password, username } = req.body;
-    const [user] = await getUser(username);
+    let { user_id } = +req.params.id
+    let { firstName, lastName, email, username, password } =
+      req.body;
+    const [user] = await getUserID(user_id);
     firstName ? (firstName = firstName) : ({ firstName } = user);
     lastName ? (lastName = lastName) : ({ lastName } = user);
     email ? (email = email) : ({ email } = user);
-    username ? (username = newUsername) : ({ username } = user);
+    username ? (username = username) : ({ username } = user);
     password ? (password = password) : ({ password } = user);
     // Update the existing user in the database
-    rehash = bcrypt.hash(password, 10)
+    rehash = bcrypt.hash(password, 10);
     const alteredUser = await alterUserData(
       firstName,
       lastName,
       email,
       username,
-      rehash,
-      username
+      rehash
     );
     // Respond with the updated user in JSON format
     res.status(200).json(alteredUser);
   },
 
   editUserAdmin: async (req, res) => {
-    let { userStatus, username} = req.body;
-    const [user] = await getUser(username);
+    let { user_id } = +req.params.id
+    let { userStatus } = req.body;
+    const [user] = await getUserID(user_id);
     userStatus ? (userStatus = userStatus) : ({ userStatus } = user);
+    userType ? (userType = userType) : ({ userType } = user);
     // Update the existing user in the database
-    const alteredUser = await alterUserAdmin(userStatus,username);
+    const alteredUser = await alterUserAdmin(userStatus, username);
     // Respond with the updated user in JSON format
     res.status(200).json(alteredUser);
   },
-  
+
   editUserType: async (req, res) => {
-    let { userType, username} = req.body;
-    const [user] = await getUser(username);
+    let { user_id } = req.params.id
+    let { userType } = req.body;
+    const [user] = await getUser(user_id);
     userType ? (userType = userType) : ({ userType } = user);
     // Update the existing user in the database
-    const alteredUser = await alterUserType(userType,username);
+    const alteredUser = await alterUserType(userType, username);
     // Respond with the updated user in JSON format
     res.status(200).json(alteredUser);
   },
   report: async (req, res) => {
-    let { username } = req.body;
+    let { user_id } = req.body;
     // Update the existing user in the database
-    const alteredUser = await reportUser(username);
+    const alteredUser = await reportUser(user_id);
     // Respond with the updated user in JSON format
     res.status(200).json(alteredUser);
   },
   deleteUser: async (req, res) => {
     try {
-      let { username} = req.body;
-
-      let deletedUser =await deleteUser(username);
+      let { user_id } = +req.params.id;
+      let deletedUser = await deleteUser(user_id);
       res.status(200).json(deletedUser);
     } catch (error) {
       res.json({
@@ -270,9 +267,9 @@ const userController = {
 
       // Compare the provided password with the hashed password
       const result = await bcrypt.compare(password, userPassword);
-
+      console.log(result)
       if (result) {
-        const token = jwt.sign({ username}, process.env.SECRET_KEY, {
+        const token = jwt.sign({ username }, process.env.SECRET_KEY, {
           expiresIn: "2h",
         });
         const cookieOptions = {
@@ -282,6 +279,7 @@ const userController = {
         res.cookie("jwt_token", token, cookieOptions);
         // Passwords match, proceed with login logic
         res.status(200).json({ msg: "Login successful" });
+        console.log(token)
       } else {
         // Passwords do not match
         res.status(401).json({ msg: "Incorrect password" });
@@ -303,8 +301,8 @@ const userController = {
   },
   getFollowing: async (req, res) => {
     try {
-      let { following_id } = req.body;
-      const following = await getFollowing(following_id);
+      let { user_id } = +req.params.id;
+      const following = await getFollowing(user_id);
       res.status(200).json(following);
       // if (error) throw error;
     } catch (error) {
@@ -313,8 +311,8 @@ const userController = {
   },
   getFollowers: async (req, res) => {
     try {
-      let { follower_id } = req.body;
-      const followers = await getFollowers(follower_id);
+      let { user_id } = +req.params.id;
+      const followers = await getFollowers(user_id);
       res.status(200).json(followers);
       // if (error) throw error;
     } catch (error) {
@@ -322,12 +320,14 @@ const userController = {
     }
   },
   follow: async (req, res) => {
-    let { follower_id, following_id } = req.body;
+    let following_id = +req.params.id
+    let follower_id = req.body;
     let followUser = await follow(follower_id, following_id);
     res.status(201).json(followUser);
   },
   unfollow: async (req, res) => {
-    let { follower_id, following_id } = req.body;
+    let following_id = +req.params.id
+    let follower_id = req.body;
     let unfollowed = await unfollow(follower_id, following_id);
     res
       .status(200)

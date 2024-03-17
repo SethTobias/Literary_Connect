@@ -86,30 +86,27 @@ const deleteLike = async (like_id) => {
 /*
 !!!!!! COME BACK TO
 */
-const getShares = async () => {
-  let [shares] = await pool.query(`
-      SELECT * FROM shared_posts
-      `);
-  return shares;
-};
-const putShares = async () => {
-  let [share] = await pool.query(
-    `
-    INSERT INTO shared_posts () VALUES ()
-    `,
-    []
-  );
-};
-const deleteShares = async () => {
-  await pool.query(
-    `
-    DELETE FROM shared_posts WHERE share_id=?
-    `
-  );
-};
-/*
-
-*/
+// const getShares = async () => {
+//   let [shares] = await pool.query(`
+//       SELECT * FROM shared_posts
+//       `);
+//   return shares;
+// };
+// const putShares = async () => {
+//   let [share] = await pool.query(
+//     `
+//     INSERT INTO shared_posts () VALUES ()
+//     `,
+//     []
+//   );
+// };
+// const deleteShares = async () => {
+//   await pool.query(
+//     `
+//     DELETE FROM shared_posts WHERE share_id=?
+//     `
+//   );
+// };
 const resetPosts = async () => {
   await pool.query(
     `
@@ -125,13 +122,13 @@ const resetLikes = async () => {
       `
   );
 };
-const resetShares = async () => {
-  await pool.query(
-    `
-      DELETE FROM shared_posts
-      `
-  );
-};
+// const resetShares = async () => {
+//   await pool.query(
+//     `
+//       DELETE FROM shared_posts
+//       `
+//   );
+// };
 
 export {
   //
@@ -147,9 +144,8 @@ export {
   putLike,
   deleteLike,
   resetLikes,
-  //
-  getShares,
-  putShares,
-  deleteShares,
-  resetShares,
+  // getShares,
+  // putShares,
+  // deleteShares,
+  // resetShares,
 };

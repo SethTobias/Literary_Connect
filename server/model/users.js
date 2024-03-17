@@ -13,18 +13,20 @@ const getUsers = async () => {
     `);
   return users;
 };
-const getUsersAUN = async () => {
-  let [users] = await pool.query(`
-    SELECT * FROM users ORDER BY username
-    `);
-  return users;
-};
-const getUsersDUN = async () => {
-  let [users] = await pool.query(`
-    SELECT * FROM users ORDER BY username DESC
-    `);
-  return users;
-};
+
+// const getUsersAUN = async () => {
+//   let [users] = await pool.query(`
+//     SELECT * FROM users ORDER BY username
+//     `);
+//   return users;
+// };
+// const getUsersDUN = async () => {
+//   let [users] = await pool.query(`
+//     SELECT * FROM users ORDER BY username DESC
+//     `);
+//   return users;
+// };
+
 const getUserID = async (user_id) => {
   const [userID] = await pool.query(
     `
@@ -34,25 +36,25 @@ const getUserID = async (user_id) => {
   );
   return userID;
 };
-const getTypeASC = async () => {
-  let [userType] = await pool.query(`
-    SELECT * FROM users ORDER BY userType ASC,username
-    `);
-  return userType;
-};
-const getTypeDESC = async () => {
-  let [userType] = await pool.query(`
-    SELECT * FROM users ORDER BY userType DESC,username
-    `);
-  return userType;
-};
-const getReaders = async () => {
-  let [readers] = await pool.query(`
-    SELECT * FROM users WHERE userType = "Reader" ORDER BY username
-    `);
-  return readers;
-};
 
+// const getTypeASC = async () => {
+//   let [userType] = await pool.query(`
+//     SELECT * FROM users ORDER BY userType ASC,username
+//     `);
+//   return userType;
+// };
+// const getTypeDESC = async () => {
+//   let [userType] = await pool.query(`
+//     SELECT * FROM users ORDER BY userType DESC,username
+//     `);
+//   return userType;
+// };
+// const getReaders = async () => {
+//   let [readers] = await pool.query(`
+//     SELECT * FROM users WHERE userType = "Reader" ORDER BY username
+//     `);
+//   return readers;
+// };
 // const getWriters = async () => {
 //   let [writers] = await pool.query(`
 //     SELECT * FROM users WHERE userType = "Writer" ORDER BY username
@@ -60,36 +62,36 @@ const getReaders = async () => {
 //   return writers;
 // };
 
-const getCurators = async () => {
-  let [curators] = await pool.query(`
-    SELECT * FROM users WHERE userType = "Curator" ORDER BY username
-    `);
-  return curators;
-};
-const getStatusASC = async () => {
-  let [status] = await pool.query(`
-    SELECT * FROM users ORDER BY userStatus,username ASC
-    `);
-  return status;
-};
-const getStatusDESC = async () => {
-  let [status] = await pool.query(`
-    SELECT * FROM users ORDER BY userStatus,username DESC
-    `);
-  return status;
-};
-const getUnderReview = async () => {
-  let [underReview] = await pool.query(`
-    SELECT * FROM users WHERE userStatus = "Under Review"
-    `);
-  return underReview;
-};
-const getReported = async () => {
-  let [reported] = await pool.query(`
-    SELECT * FROM users WHERE userStatus = "Reported"
-    `);
-  return reported;
-};
+// const getCurators = async () => {
+//   let [curators] = await pool.query(`
+//     SELECT * FROM users WHERE userType = "Curator" ORDER BY username
+//     `);
+//   return curators;
+// };
+// const getStatusASC = async () => {
+//   let [status] = await pool.query(`
+//     SELECT * FROM users ORDER BY userStatus,username ASC
+//     `);
+//   return status;
+// };
+// const getStatusDESC = async () => {
+//   let [status] = await pool.query(`
+//     SELECT * FROM users ORDER BY userStatus,username DESC
+//     `);
+//   return status;
+// };
+// const getUnderReview = async () => {
+//   let [underReview] = await pool.query(`
+//     SELECT * FROM users WHERE userStatus = "Under Review"
+//     `);
+//   return underReview;
+// };
+// const getReported = async () => {
+//   let [reported] = await pool.query(`
+//     SELECT * FROM users WHERE userStatus = "Reported"
+//     `);
+//   return reported;
+// };
 
 const getHash = async (username) => {
   let hash = await pool.query(
@@ -131,6 +133,7 @@ const getUser = async (username) => {
   );
   return users;
 };
+
 const checkUsers = async (username,email) => {
   const [users] = await pool.query(
     `
@@ -140,6 +143,7 @@ const checkUsers = async (username,email) => {
   );
   return users;
 };
+
 // * Sign Up
 const putUser = async (firstName, lastName, username, email, password) => {
   const [newUser] = await pool.query(
@@ -150,6 +154,7 @@ const putUser = async (firstName, lastName, username, email, password) => {
   );
   return newUser;
 };
+
 // *
 const alterUserData = async (
   firstName,
@@ -157,53 +162,53 @@ const alterUserData = async (
   email,
   newUsername,
   newPassword,
-  username
+  user_id
 ) => {
   const alteredUser = await pool.query(
     `
-    UPDATE users SET firstName=?,lastName=?,email=?,username=?,password=? WHERE (username = ?)
+    UPDATE users SET firstName=?,lastName=?,email=?,username=?,password=? WHERE (user_id = ?)
     `,
-    [firstName, lastName, email, newUsername, newPassword, username]
+    [firstName, lastName, email, newUsername, newPassword, user_id]
   );
   return alteredUser;
 };
 
-const alterUserAdmin = async (userStatus, username) => {
+const alterUserAdmin = async (userStatus,userType, user_id) => {
   const alteredStatus = await pool.query(
     `
-    UPDATE users SET userStatus=? WHERE (username = ?)
+    UPDATE users SET userStatus=?,userType=? WHERE (user_id = ?)
     `,
-    [userStatus, username]
+    [userStatus,userType, user_id]
   );
   return alteredStatus;
 };
 
-const alterUserType = async (userType, username) => {
+const alterUserType = async (userType, user_id) => {
   const alteredStatus = await pool.query(
     `
-    UPDATE users SET userType=?,userStatus="Under Review" WHERE (username = ?)
+    UPDATE users SET userType=?,userStatus="Under Review" WHERE (user_id = ?)
     `,
-    [userType, username]
+    [userType, user_id]
   );
   return alteredStatus;
 };
 
-const reportUser = async (username) => {
+const reportUser = async (user_id) => {
   const reportedUser = await pool.query(
     `
-    UPDATE users SET userStatus="Reported" WHERE (username = ?)
+    UPDATE users SET userStatus="Reported" WHERE (user_id = ?)
     `,
-    [username]
+    [user_id]
   );
   return reportedUser;
 };
 //  *
-const deleteUser = async (username) => {
+const deleteUser = async (user_id) => {
   await pool.query(
     ` 
-    DELETE FROM users WHERE (username = ?)
+    DELETE FROM users WHERE (user_id = ?)
     `,
-    [username]
+    [user_id]
   );
 };
 /*
@@ -219,7 +224,7 @@ const getFollows = async () => {
 const getFollowers = async (following_id) => {
   let [followers] = await pool.query(
     `
-    SELECT follower_id,COUNT(*) FROM follows WHERE following_id = ?
+    SELECT follower_id FROM follows WHERE following_id = ?
     `,
     [following_id]
   );
@@ -228,7 +233,7 @@ const getFollowers = async (following_id) => {
 const getFollowing = async (follower_id) => {
   let [following] = await pool.query(
     `
-    SELECT following_id,COUNT(*) FROM follows WHERE follower_id = ?
+    SELECT following_id FROM follows WHERE follower_id = ?
     `,
     [follower_id]
   );
@@ -243,6 +248,7 @@ const follow = async (follower_id, following_id) => {
   );
   return newFollower;
 };
+
 const unfollow = async (follower_id, following_id) => {
   let unfollow = await pool.query(
     `
@@ -255,24 +261,27 @@ const unfollow = async (follower_id, following_id) => {
 // !Exporting of Functions
 export {
   //
+  // getUsersAUN,
+  // getUsersDUN,
+
   getUsers,
-  getUsersAUN,
-  getUsersDUN,
   getUserID,
   getHash,
-  getTypeASC,
-  getTypeDESC,
-  getStatusASC,
-  getStatusDESC,
-  getReaders,
-  getWriters,
-  getCurators,
-  getUnderReview,
-  getReported,
   getUser,
   getFollows,
   getFollowers,
   getFollowing,
+
+  // getTypeASC,
+  // getTypeDESC,
+  // getStatusASC,
+  // getStatusDESC,
+  // getReaders,
+  // getWriters,
+  // getCurators,
+  // getUnderReview,
+  // getReported,
+  
   //
   checkUsers,
   //

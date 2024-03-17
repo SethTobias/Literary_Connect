@@ -15,29 +15,20 @@ const router = express.Router();
 
 //
 router.route("/user").get(userController.getUsers);
-// router.route("/user/A").get(userController.getUsersAUN);
-// router.route("/user/D").get(userController.getUsersDUN);
-// router.route("/user/TA").get(userController.getUsersTypeA);
-// router.route("/user/TD").get(userController.getUsersTypeD);
-router.route("/user/review").get(userController.getReview);
-router.route("/user/reported").get(userController.getReported);
-// router.route("/user/:id").get(userController.getUserIDParam);
-// router.route("/user/:username").get(userController.getUserIDBody);
-//
+router.route("/user/:user_id").get(userController.getUserID);
 router.route("/user/add").post(userController.putUser);
-//
-router.route("/user/login").get(userController.login);
-
-router.route("/user/edit").patch(userController.editUser);
-router.route("/user/editType").patch(userController.editUserType);
+router.route("/user/login").post(userController.login);
+router.route("/user/edit/:user_id").patch(userController.editUser);
+router.route("/user/editType/:user_id").patch(userController.editUserType);
+router.route("/user/admin/edit/:user_id").patch(userController.editUserAdmin);
 router.route("/user/report").patch(userController.report);
-router.route("/user/delete").delete(verifyToken,userController.deleteUser);
+router.route("/user/delete/:user_id").delete(verifyToken,userController.deleteUser);
 //
 router.route("/user/follows").get(userController.getFollows);
-router.route("/user/following").get(userController.getFollowing);
-router.route("/user/followers").get(userController.getFollowers);
-router.route("/user/follow").post(userController.follow);
-router.route("/user/unfollow").delete(userController.unfollow);
+router.route("/user/following/:user_id").get(userController.getFollowing);
+router.route("/user/followers/:user_id").get(userController.getFollowers);
+router.route("/user/follow/:user_id").post(userController.follow);
+router.route("/user/unfollow/:user_id").delete(userController.unfollow);
 
 
 

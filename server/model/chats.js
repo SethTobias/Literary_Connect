@@ -52,7 +52,7 @@ const putParticipant = async (user_id, chat_id) => {
     `
 INSERT INTO chat_participants (user_id,chat_id) VALUES (?,?)
 `,
-    [user_id,chat_id,chat_name]
+    [user_id,chat_id]
   );
   return newParticipant
 };
