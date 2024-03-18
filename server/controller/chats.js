@@ -4,7 +4,6 @@ import {
   getChats,
   getChat,
   putChat,
-  editChat,
   deleteChat,
   resetChats,
   //
@@ -23,6 +22,7 @@ config();
 /*
 !!!!!! COME BACK TO
 */
+
 const chatController = {
   getChats: async (req, res) => {
     try {

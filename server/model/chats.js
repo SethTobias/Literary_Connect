@@ -122,7 +122,6 @@ export {
   getChats,
   getChat,
   putChat,
-  editChat,
   deleteChat,
   resetChats,
   //
