@@ -29,20 +29,20 @@
         <!-- <i class="fa-regular fa-eye"></i> -->
         <span class="collapse-txt" :style="dynamicText">Discover</span>
       </router-link>
-      <router-link to="/links">
+      <!-- <router-link to="/links">
         <i class="fa-solid fa-link"></i>
         <span class="collapse-txt" :style="dynamicText">Links</span>
-      </router-link>
+      </router-link> -->
       <p  @click="toggleStyles">
         <i class="fa-solid fa-comment-dots"></i>
         <!-- <i class="fa-regular fa-comment-dots"></i> -->
         <span class="collapse-txt"  :style="dynamicText">Conversations</span>
       </p>
-      <p  @click="toggleStyles">
+      <!-- <p  @click="toggleStyles">
         <i class="fa-solid fa-heart"></i>
-        <!-- <i class="fa-regular fa-heart"></i> -->
+        <i class="fa-regular fa-heart"></i>
         <span class="collapse-txt"  :style="dynamicText">Notifications</span>
-      </p>
+      </p> -->
       <router-link to="/interact">
         <i class="fa-solid fa-users"></i>
         <span class="collapse-txt" :style="dynamicText">Interact</span>
@@ -55,6 +55,10 @@
       <router-link to="/admin" :v-if="$store.state.userType==='Curator'">
         <i class="fa-solid fa-gears"></i>
         <span class="collapse-txt" :style="dynamicText">Admin</span>
+      </router-link>
+      <router-link to="/signin">
+        <i class="fa-solid fa-right-to-bracket"></i>
+        <span class="collapse-txt" :style="dynamicText">Sign In</span>
       </router-link>
     </div>
     <div class="sub-nav"></div>
@@ -79,14 +83,6 @@ export default {
       isStylesApplied: true,
     };
   },
-  computed: {
-    //     getUsers() {
-    //   this.$store.dispatch("getUsers");
-    // },
-    // getUser() {
-    //   this.$store.dispatch("getUser");
-    // },
-  },
   methods: {
     toggleStyles() {
       this.isStylesApplied = !this.isStylesApplied;
@@ -95,10 +91,6 @@ export default {
       this.dynamicText = this.isStylesApplied ? {display: ""} : {display: "none"};
     },
   },
-  mounted() {
-     this.getUsers;
-    this.getUser;
-  }
 };
 </script>
 

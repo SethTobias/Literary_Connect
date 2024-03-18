@@ -105,7 +105,7 @@
 </template>
 
 <script>
-import Sign from "../components/Sign.vue";
+import Sign from "../components/SignUp.vue";
 export default {
   components: {
     Sign,
@@ -120,8 +120,8 @@ export default {
     getPosts() {
       this.$store.dispatch("getPosts");
     },
-    getUser() {
-      this.$store.dispatch("getUser");
+    getUserID() {
+      this.$store.dispatch("getUserID");
     },
     getUsers() {
       this.$store.dispatch("getUsers");
@@ -132,7 +132,7 @@ export default {
   },
   mounted() {
     this.getPosts;
-    // this.getUser;
+    this.getUserID;
     this.getUsers;
     // this.getLike;
   },

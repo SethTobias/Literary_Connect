@@ -60,7 +60,18 @@ export default createStore({
     },
     async getUser({ commit }) {
       try {
-        const { data } = await axios.post(api_url + "/user/login");
+        const { data } = await axios.post(api_url + "/user/:user_id");
+        commit("setUserID", data);
+      } catch (error) {
+        console.error(
+          "Error: Failed to retrieve user from Database.",
+          error
+        );
+      }
+    },
+    async getUserID({ commit }) {
+      try {
+        const { data } = await axios.post(api_url + "/user/:");
         commit("setUser", data);
       } catch (error) {
         console.error(

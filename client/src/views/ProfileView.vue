@@ -5,27 +5,31 @@
       <div class="profile-pp"></div>
       <div class="profile-info">
         <div class="profile-data">
-          <p>{{ $store.state.userPost.length }}</p>
-          <p>{{ $store.state.userFollowers.length }}</p>
-          <p>{{ $store.state.userFollowers.length }}</p>
+          <p>
+            <!-- {{ $store.state.userPost }} -->
+          </p>
+          <p>
+            <!-- {{ $store.state.userFollowers }} -->
+          </p>
+          <p>
+            <!-- {{ $store.state.userFollowers }} -->
+          </p>
         </div>
-         <div class="dropdown">
-    <i class="fa-solid fa-gears" @click="toggleDropdown"></i>
-    <div class="dropdown-menu" :class="{ show: isDropdownOpen }">
-      <div class="dropdown-item" @click="openEditUser()">Edit User</div>
-      <div class="editModal" :style="openEditUser">
-        <input type="text">
-        <input type="text">
-        <input type="text">
-        <input type="text">
-        <input type="text">
-        <input type="button" value="Submit">
-      </div>
-      <div @click="deleteUser">
-        Delete
-      </div>
-    </div>
-  </div>
+        <div class="dropdown">
+          <i class="fa-solid fa-gears" @click="toggleDropdown"></i>
+          <div class="dropdown-menu" :class="{ show: isDropdownOpen }">
+            <div class="dropdown-item" @click="openEditUser()">Edit User</div>
+            <div class="editModal" :style="openEditUser">
+              <input type="text" />
+              <input type="text" />
+              <input type="text" />
+              <input type="text" />
+              <input type="text" />
+              <input type="button" value="Submit" />
+            </div>
+            <div @click="deleteUser">Delete</div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="profile-overview">
@@ -47,11 +51,11 @@
   </div>
 </template>
 <script>
-import Sign from "../components/Sign.vue";
+import Sign from "../components/SignUp.vue";
 export default {
-   data() {
+  data() {
     return {
-      isDropdownOpen: false
+      isDropdownOpen: false,
     };
   },
   components: {
@@ -76,7 +80,6 @@ export default {
     // getUsers() {
     //   this.$store.dispatch("getUsers");
     // },
-
     // getFollows() {
     //   this.$store.dispatch("getFollows");
     // },
@@ -91,20 +94,20 @@ export default {
     //   this.$store.dispatch("getComment");
     // },
   },
- mounted() {
-  // this.getUser();
-  // this.getFollowing();
-  // this.getFollower();
-},
+  mounted() {
+    // this.getUser();
+    // this.getFollowing();
+    // this.getFollower();
+  },
 
-methods: {
-  toggleDropdown() {
-    this.isDropdownOpen = !this.isDropdownOpen;
+  methods: {
+    toggleDropdown() {
+      this.isDropdownOpen = !this.isDropdownOpen;
+    },
+    openEditUser() {
+      this.isModalOpen = false;
+    },
   },
-  openEditUser() {
-   this.isModalOpen = false;
-  },
-}
 };
 </script>
 <style scoped></style>

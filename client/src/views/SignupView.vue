@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import Sign from "../components/Sign.vue"; 
+import Sign from "../components/SignUp.vue"; 
 export default {
   components: {
     Sign,
