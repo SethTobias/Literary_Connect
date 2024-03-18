@@ -4,12 +4,11 @@ import { config } from "dotenv";
 config();
 
 // ? const getChats = async () => {
-// ? let [chats] = await pool.query(`
-// ?   SELECT * FROM chats 
+// ?  let [chats] = await pool.query(`
+// ?   SELECT * FROM chats
 // ?   `);
-// ? return chats;
-// };
-
+// ?  return chats;
+// ?};
 const getChat = async (chat_id) => {
   let [chat] = await pool.query(
     `
@@ -24,7 +23,8 @@ const putChat = async (chat_name) => {
   let [newChat] = await pool.query(
     `
     INSERT INTO chats (chat_name) VALUES (?)
-    `,[chat_name]
+    `,
+    [chat_name]
   );
   return newChat;
 };
@@ -41,9 +41,12 @@ const deleteChat = async (chat_id) => {
 
 */
 const getParticipants = async (chat_id) => {
-  let [participants] = await pool.query(`
+  let [participants] = await pool.query(
+    `
       SELECT * FROM chat_participants WHERE chat_id=?
-      `,[chat_id]);
+      `,
+    [chat_id]
+  );
   return participants;
 };
 
@@ -52,16 +55,17 @@ const putParticipant = async (user_id, chat_id) => {
     `
 INSERT INTO chat_participants (user_id,chat_id) VALUES (?,?)
 `,
-    [user_id,chat_id]
+    [user_id, chat_id]
   );
-  return newParticipant
+  return newParticipant;
 };
 
 const deleteParticipant = async (participant_id) => {
   await pool.query(
     `
       DELETE FROM chat_participants WHERE participant_id=? 
-      `,[participant_id]
+      `,
+    [participant_id]
   );
 };
 /*
@@ -74,12 +78,12 @@ const getMessages = async (chat_id) => {
   return messages;
 };
 
-const putMessage = async (user_id,chat_id,message_text) => {
+const putMessage = async (user_id, chat_id, message_text) => {
   let [message] = await pool.query(
     `
     INSERT INTO messages (user_id,chat_id,message_text) VALUES (?,?,?)
     `,
-    [user_id,chat_id,message_text]
+    [user_id, chat_id, message_text]
   );
   return message;
 };
@@ -119,7 +123,7 @@ const resetMessages = async () => {
 
 export {
   //
-  getChats,
+  // getChats
   getChat,
   putChat,
   deleteChat,
