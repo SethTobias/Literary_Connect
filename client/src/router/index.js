@@ -11,12 +11,12 @@ import SigninView from "../views/SigninView.vue";
 
 const routes = [
   {
-    path: "/:user_id",
+    path: "/",
     name: "home",
     component: HomeView,
   },
   {
-    path: "/admin/user:id",
+    path: "/admin",
     name: "admin",
     component: AdminView,
   },
@@ -31,7 +31,7 @@ const routes = [
     component: InteractView,
   },
   {
-    path: "/profile/:user_id",
+    path: "/profile/",
     name: "profile",
     component: ProfileView,
   },

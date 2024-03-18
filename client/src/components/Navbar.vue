@@ -52,11 +52,9 @@
         <!-- <i class="fa-regular fa-id-badge"></i> -->
         <span class="collapse-txt" :style="dynamicText">My Profile</span>
       </router-link>
-      <router-link to="/admin" :v-if="$store.state.userType=='Curator'">
+      <router-link to="/admin" :v-if="$store.state.userType==='Curator'">
         <i class="fa-solid fa-gears"></i>
         <span class="collapse-txt" :style="dynamicText">Admin</span>
-        <!-- <i class="fa-regular fa-id-badge"></i> -->
-        <span class="collapse-txt" :style="dynamicText">My Profile</span>
       </router-link>
     </div>
     <div class="sub-nav"></div>
@@ -82,12 +80,12 @@ export default {
     };
   },
   computed: {
-        getUsers() {
-      this.$store.dispatch("getUsers");
-    },
-    getUser() {
-      this.$store.dispatch("getUser");
-    },
+    //     getUsers() {
+    //   this.$store.dispatch("getUsers");
+    // },
+    // getUser() {
+    //   this.$store.dispatch("getUser");
+    // },
   },
   methods: {
     toggleStyles() {

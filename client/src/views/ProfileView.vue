@@ -64,24 +64,19 @@ export default {
     },
   },
   computed: {
-    getUser() {
-      this.$store.dispatch("getUser");
-    },
-    getFollowing() {
-      this.$store.dispatch("getFollowing");
-    },
-    getFollower() {
-      this.$store.dispatch("getFollower");
-    },
+    // getUser() {
+    //   this.$store.dispatch("getUser");
+    // },
+    // getFollowing() {
+    //   this.$store.dispatch("getFollowing");
+    // },
+    // getFollower() {
+    //   this.$store.dispatch("getFollower");
+    // },
     // getUsers() {
     //   this.$store.dispatch("getUsers");
     // },
-    // getReview() {
-    //   this.$store.dispatch("getReview");
-    // },
-    // getReported() {
-    //   this.$store.dispatch("getReported");
-    // },
+
     // getFollows() {
     //   this.$store.dispatch("getFollows");
     // },
@@ -97,9 +92,9 @@ export default {
     // },
   },
  mounted() {
-  this.getUser();
-  this.getFollowing();
-  this.getFollower();
+  // this.getUser();
+  // this.getFollowing();
+  // this.getFollower();
 },
 
 methods: {
