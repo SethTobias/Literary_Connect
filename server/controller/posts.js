@@ -13,10 +13,10 @@ import {
   deleteLike,
   resetLikes,
   //
-  getShares,
-  putShares,
-  deleteShares,
-  resetShares,
+  // getShares,
+  // putShares,
+  // deleteShares,
+  // resetShares,
 } from "../model/posts.js";
 import { config } from "dotenv";
 config();

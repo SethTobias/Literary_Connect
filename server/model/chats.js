@@ -3,12 +3,12 @@ import { pool } from "../config/config.js";
 import { config } from "dotenv";
 config();
 
-// ? const getChats = async () => {
-// ?  let [chats] = await pool.query(`
-// ?   SELECT * FROM chats
-// ?   `);
-// ?  return chats;
-// ?};
+ const getChats = async () => {
+  let [chats] = await pool.query(`
+   SELECT * FROM chats
+   `);
+  return chats;
+};
 const getChat = async (chat_id) => {
   let [chat] = await pool.query(
     `
@@ -123,7 +123,7 @@ const resetMessages = async () => {
 
 export {
   //
-  // getChats
+  getChats,
   getChat,
   putChat,
   deleteChat,

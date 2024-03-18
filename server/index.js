@@ -50,6 +50,7 @@ app.use('/:user_id',postRouter)
 app.use('/add/:user_id',postRouter)
 app.use('/edit/:post_id',postRouter)
 app.use('/delete/:post_id',postRouter)
+app.use('/like/:post_id/',postRouter)
 app.use('/like/add/:post_id/:user_id',postRouter)
 app.use('/like/delete/:like_id',postRouter)
 
