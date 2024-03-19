@@ -162,13 +162,14 @@ const alterUserData = async (
   email,
   newUsername,
   newPassword,
+  pp_url,
   user_id
 ) => {
   const alteredUser = await pool.query(
     `
-    UPDATE users SET firstName=?,lastName=?,email=?,username=?,password=? WHERE (user_id = ?)
+    UPDATE users SET firstName=?,lastName=?,email=?,username=?,password=?,pp_url=? WHERE user_id = ?
     `,
-    [firstName, lastName, email, newUsername, newPassword, user_id]
+    [firstName, lastName, email, newUsername, newPassword,pp_url,user_id]
   );
   return alteredUser;
 };
@@ -176,7 +177,7 @@ const alterUserData = async (
 const alterUserAdmin = async (userStatus,userType, user_id) => {
   const alteredStatus = await pool.query(
     `
-    UPDATE users SET userStatus=?,userType=? WHERE (user_id = ?)
+    UPDATE users SET userStatus=?,userType=? WHERE user_id = ?
     `,
     [userStatus,userType, user_id]
   );
@@ -215,7 +216,8 @@ const deleteUser = async (user_id) => {
 
 */
 const getFollows = async () => {
-  let [follows] = await pool.query(`
+  let [follows] = await pool.query(
+    `
     SELECT * FROM follows
     `);
   return follows;

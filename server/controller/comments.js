@@ -12,7 +12,7 @@ config();
 const commentController = {
   getComments: async (req, res) => {
     try {
-      let {post_id} = +req.params.post_id;
+      let {post_id} = req.params;
       const comments = await getComments(post_id);
       res.status(200).json(comments);
     } catch (error) {
@@ -21,13 +21,14 @@ const commentController = {
     }
   },
   putComment: async (req, res) => {
-    let { user_id, post_id } = req.params.id
+    let { user_id, post_id } = req.params
     let {  comment_text } = req.body;
     let comment = await putComment(user_id, post_id, comment_text);
     res.status(200).json(comment);
   },
   editComment: async (req, res) => {
-    let { comment_id } = req.params.id
+    let { comment_id } = req.params
+    
     let { comment_text } = req.body;
     const [comment] = await getComment(comment_id);
     comment_text ? (comment_text = comment_text) : ({ comment_text } = comment);
@@ -35,7 +36,7 @@ const commentController = {
     res.status(200).json(alteredComment);
   },
   deleteComment: async (req, res) => {
-    let comment_id = +req.params.id;
+    let {comment_id} = req.params;
     let comment = await deleteComment(comment_id);
     res.status(200).json(comment);
   },

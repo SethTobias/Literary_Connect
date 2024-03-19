@@ -9,7 +9,11 @@ config();
 const getComments = async (post_id) => {
   let [comments] = await pool.query(
     `
-    SELECT * FROM comments.* posts.post_id,posts.user_id,users.user_id,users.username LEFT JOIN posts ON comments.post_id = posts.post_id LEFT JOIN users ON posts.user_id=users.user_id WHERE post_id=?
+    SELECT comments.*, posts.*, users.* 
+    FROM comments 
+    LEFT JOIN posts ON comments.post_id = posts.post_id 
+    LEFT JOIN users ON posts.user_id = users.user_id 
+    WHERE posts.post_id = ?
     `,
     [post_id]
   );

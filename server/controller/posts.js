@@ -31,40 +31,38 @@ const postController = {
     }
   },
   getUserPosts: async (req, res) => {
-    let { user_id } = +req.params.id;
+    let { user_id } = req.params;
     let posts = await getUserPosts(user_id);
     res.status(200).json(posts);
   },
   getPost: async (req, res) => {
-    let { post_id } = +req.param.id;
+    let { post_id } = req.params;
     let post = await getPost(post_id);
     res.status(200).json(post);
   },
   putPost: async (req, res) => {
-    let { user_id } = req.params.id
-    let { content, caption } = req.body;
+    let { user_id } = req.params
+    let { post_url, caption } = req.body;
 
-    let post = await putPost(user_id, content, caption);
+    let post = await putPost(user_id, post_url, caption);
     res.status(201).json(post);
   },
   editPost: async (req, res) => {
-    let { post_id } = req.params.id
-    let { content, caption  } = req.body;
+    let { post_id } = req.params
+    let { caption  } = req.body;
     const [post] = await getPost(post_id);
-    content ? (content = content) : ({ content } = post);
     caption ? (caption = caption) : ({ caption } = post);
-    let alteredPost = await editPost(content, caption, post_id);
+    let alteredPost = await editPost(caption, post_id);
     res.status(200).json(alteredPost);
   },
   deletePost: async (req, res) => {
-    let { post_id } = +req.params.id;
+    let { post_id } = req.params;
     let post = await deletePost(post_id);
     res.status(200).json(post);
   },
   // ?
   getLikes: async (req, res) => {
     try {
-      let post_id = +req.params.id;
       const likes = await getLikes(post_id);
       res.status(200).json(likes);
     } catch (error) {
@@ -72,8 +70,20 @@ const postController = {
       res.status(500).json({ error: "Internal Server Error" });
     }
   },
+  getPostLikes: async (req, res) => {
+    try {
+      let {post_id} = req.params;
+      console.log(post_id)
+      const likes = await getPostLikes(post_id);
+      console.log(likes)
+      res.status(200).json(likes);
+    } catch (error) {
+      console.error("Error in getLikes:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
   putLike: async (req, res) => {
-    let { user_id, post_id } = req.params.id;
+    let { user_id, post_id } = req.params;
     let like = putLike(user_id, post_id);
     res.status(200).json(like);
   },

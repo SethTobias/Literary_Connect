@@ -112,7 +112,7 @@ const userController = {
   // },
   getUserID: async (req, res) => {
     try {
-      let { user_id } = +req.param.id;
+      let { user_id } = req.params;
       const user = await getUserID(user_id);
       res.status(200).json(user);
     } catch (error) {
@@ -129,7 +129,7 @@ const userController = {
       // Check if user already exists
       const existingUser = await checkUsers(username, email);
       // If user already exists, return error
-      if (existingUser) {
+      if (!existingUser) {
         return res.status(400).json({
           msg: "The username or email has already been registered to the database.",
         });
@@ -156,7 +156,8 @@ const userController = {
         } catch (error) {
           console.error("Error in putUser:", error);
           return res.status(500).json({
-            error: "Internal Server Error. Failed to add user to the database.",
+            error:
+              "Failed to add user to the database as this username or email has already been used.",
           });
         }
       });
@@ -167,49 +168,65 @@ const userController = {
       });
     }
   },
-
   editUser: async (req, res) => {
-    let { user_id } = +req.params.id
-    let { firstName, lastName, email, username, password } =
-      req.body;
-    const [user] = await getUserID(user_id);
-    firstName ? (firstName = firstName) : ({ firstName } = user);
-    lastName ? (lastName = lastName) : ({ lastName } = user);
-    email ? (email = email) : ({ email } = user);
-    username ? (username = username) : ({ username } = user);
-    password ? (password = password) : ({ password } = user);
-    // Update the existing user in the database
-    rehash = bcrypt.hash(password, 10);
-    const alteredUser = await alterUserData(
-      firstName,
-      lastName,
-      email,
-      username,
-      rehash
-    );
-    // Respond with the updated user in JSON format
-    res.status(200).json(alteredUser);
+    try {
+      const { user_id } = req.params;
+      console.log(user_id);
+      let { firstName, lastName, email, username, password, pp_url } = req.body;
+      console.log(firstName, lastName, email, username, password, pp_url);
+
+      // Fetch the existing user from the database
+      const [user] = await getUserID(user_id);
+      // Update user fields if provided in the request body
+      firstName ? (firstName = firstName) : ({ firstName } = user);
+      lastName ? (lastName = lastName) : ({ lastName } = user);
+      email ? (email = email) : ({ email } = user);
+      username ? (username = username) : ({ username } = user);
+
+      password
+        ? (password = password)
+        : ({ password = bcrypt.hash(password, 10) } = user);
+
+      pp_url ? (pp_url = pp_url) : ({ pp_url } = user);
+
+      // Update the user in the database
+      const alteredUser = await alterUserData(
+        firstName,
+        lastName,
+        email,
+        username,
+        password,
+        pp_url,
+        user_id
+      );
+
+      // Respond with the updated user in JSON format
+      res.status(200).json(alteredUser);
+    } catch (error) {
+      console.error("Error updating user:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
   },
 
   editUserAdmin: async (req, res) => {
-    let { user_id } = +req.params.id
-    let { userStatus } = req.body;
+    let { user_id } = req.params;
+    let { userStatus,userType } = req.body;
     const [user] = await getUserID(user_id);
     userStatus ? (userStatus = userStatus) : ({ userStatus } = user);
     userType ? (userType = userType) : ({ userType } = user);
     // Update the existing user in the database
-    const alteredUser = await alterUserAdmin(userStatus, username);
+    const alteredUser = await alterUserAdmin(userStatus,userType, user_id);
     // Respond with the updated user in JSON format
     res.status(200).json(alteredUser);
   },
 
   editUserType: async (req, res) => {
-    let { user_id } = req.params.id
+    let { user_id } = req.params;
     let { userType } = req.body;
     const [user] = await getUser(user_id);
     userType ? (userType = userType) : ({ userType } = user);
     // Update the existing user in the database
-    const alteredUser = await alterUserType(userType, username);
+    const alteredUser = await alterUserType(userType, user_id);
     // Respond with the updated user in JSON format
     res.status(200).json(alteredUser);
   },
@@ -222,9 +239,10 @@ const userController = {
   },
   deleteUser: async (req, res) => {
     try {
-      let { user_id } = +req.params.id;
+      let { user_id } = req.params;
       let deletedUser = await deleteUser(user_id);
-      res.status(200).json(deletedUser);
+      res.status(200).json
+      (deletedUser);
     } catch (error) {
       res.json({
         status: res.status(400),
@@ -257,6 +275,7 @@ const userController = {
       const { username, password } = req.body;
 
       // Retrieve hashed password from the database based on the username
+      let user = await getUser(username)
       let [[hashedPassword]] = await getHash(username);
 
       if (!hashedPassword) {
@@ -267,7 +286,7 @@ const userController = {
 
       // Compare the provided password with the hashed password
       const result = await bcrypt.compare(password, userPassword);
-      console.log(result)
+      console.log(result);
       if (result) {
         const token = jwt.sign({ username }, process.env.SECRET_KEY, {
           expiresIn: "2h",
@@ -278,8 +297,8 @@ const userController = {
         };
         res.cookie("jwt_token", token, cookieOptions);
         // Passwords match, proceed with login logic
-        res.status(200).json({ msg: "Login successful" });
-        console.log(token)
+        res.status(200).json({ msg: "Login successful", user, token });
+        console.log(token);
       } else {
         // Passwords do not match
         res.status(401).json({ msg: "Incorrect password" });
@@ -293,6 +312,7 @@ const userController = {
   getFollows: async (req, res) => {
     try {
       const follows = await getFollows();
+      console.log(follows)
       res.status(200).json(follows);
     } catch (error) {
       console.error("Error in getFollows:", error);
@@ -301,7 +321,7 @@ const userController = {
   },
   getFollowing: async (req, res) => {
     try {
-      let { user_id } = +req.params.id;
+      let { user_id } = req.params;
       const following = await getFollowing(user_id);
       res.status(200).json(following);
       // if (error) throw error;
@@ -311,7 +331,7 @@ const userController = {
   },
   getFollowers: async (req, res) => {
     try {
-      let { user_id } = +req.params.id;
+      let { user_id } = req.params;
       const followers = await getFollowers(user_id);
       res.status(200).json(followers);
       // if (error) throw error;
@@ -320,14 +340,14 @@ const userController = {
     }
   },
   follow: async (req, res) => {
-    let following_id = +req.params.id
-    let follower_id = req.body;
+    let {follower_id} = req.params;
+    let {following_id} = req.body;
     let followUser = await follow(follower_id, following_id);
     res.status(201).json(followUser);
   },
   unfollow: async (req, res) => {
-    let following_id = +req.params.id
-    let follower_id = req.body;
+    let {follower_id} = req.params;
+    let {following_id} = req.body;
     let unfollowed = await unfollow(follower_id, following_id);
     res
       .status(200)
