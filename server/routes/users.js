@@ -15,7 +15,7 @@ const router = express.Router();
 //
 router.route("/user").get(userController.getUsers);
 router.route("/user/:user_id").get(verifyToken,userController.getUserID);
-router.route("/user/add").post(userController.putUser);
+router.route("/user/register").post(userController.registerUser);
 router.route("/user/login").post(userController.login);
 router.route("/user/edit/:user_id").patch(verifyToken,userController.editUser);
 router.route("/user/editType/:user_id").patch(verifyToken,userController.editUserType);
