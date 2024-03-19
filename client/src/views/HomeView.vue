@@ -42,12 +42,10 @@
                 <i class="fa-regular fa-user"></i>
                 <!-- <i class="fa-solid fa-user"></i> -->
               </div>
-              <div class="comments-btn" @click="openModal">
-                View Comments
-              </div>
+              <div class="comments-btn" @click="openModal">View Comments</div>
               <div class="comments-container" v-if="isModalOpen">
                 <div @click="closeModal">Close</div>
-                <Comment/>
+                <Comment />
               </div>
             </div>
             <div class="post-comment">
@@ -107,14 +105,14 @@
 
 <script>
 import Sign from "../components/SignUp.vue";
-import Comment from "../components/Comment.vue"
+import Comment from "../components/Comment.vue";
 export default {
   components: {
     Sign,
   },
   data() {
     return {
-      isModalOpen: false
+      isModalOpen: false,
     };
   },
   props: {
@@ -143,7 +141,7 @@ export default {
     },
     closeModal() {
       this.isModalOpen = false;
-    }
+    },
   },
   mounted() {
     this.getPosts;
@@ -177,11 +175,10 @@ export default {
   align-items: center;
 }
 
-.pp img{
+.pp img {
   height: 50px;
   width: 50px;
   border-radius: 25px;
-
 }
 
 .home-container {
@@ -222,14 +219,14 @@ export default {
 .comments-container {
   width: 400px;
   height: 300px;
-  background-color: red;
-position: fixed;
-  z-index: 1; 
+  background-color: hsl(180, 44%, 7%, 25%);
+  position: fixed;
+  z-index: 1;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto; 
+  overflow: auto;
 }
 
 .home-card {
