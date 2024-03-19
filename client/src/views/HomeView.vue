@@ -7,7 +7,7 @@
           <div class="pp"><img :src="item.pp_url" alt="" /></div>
           <div>
             <p>
-              <span>{{ item.post_id }}</span>
+              <span>{{ item.username }}</span>
             </p>
             <p>Posted {{ item.created_at }}</p>
           </div>
@@ -42,12 +42,13 @@
                 <i class="fa-regular fa-user"></i>
                 <!-- <i class="fa-solid fa-user"></i> -->
               </div>
-              <div class="comments-btn" @click="openComments()">
+              <div class="comments-btn" @click="openModal">
                 View Comments
               </div>
-              <!-- <div class="comments-container">
-                <Comments/>
-              </div> -->
+              <div class="comments-container" v-if="isModalOpen">
+                <div @click="closeModal">Close</div>
+                <Comment/>
+              </div>
             </div>
             <div class="post-comment">
               <div class="comment-icon">
@@ -106,9 +107,15 @@
 
 <script>
 import Sign from "../components/SignUp.vue";
+import Comment from "../components/Comment.vue"
 export default {
   components: {
     Sign,
+  },
+  data() {
+    return {
+      isModalOpen: false
+    };
   },
   props: {
     notSign: {
@@ -129,6 +136,14 @@ export default {
     getLike() {
       this.$store.dispatch("getLike");
     },
+  },
+  methods: {
+    openModal() {
+      this.isModalOpen = true;
+    },
+    closeModal() {
+      this.isModalOpen = false;
+    }
   },
   mounted() {
     this.getPosts;
@@ -160,6 +175,13 @@ export default {
   grid: "post dash" 100% / 1.5fr 1fr;
   /*  */
   align-items: center;
+}
+
+.pp img{
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+
 }
 
 .home-container {
@@ -195,6 +217,19 @@ export default {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--secondary);
+}
+
+.comments-container {
+  width: 400px;
+  height: 300px;
+  background-color: red;
+position: fixed;
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; 
 }
 
 .home-card {
@@ -353,5 +388,10 @@ export default {
   height: 75px;
   margin: auto;
   border-radius: 100%;
+}
+
+.comment-container {
+  z-index: 2;
+  /* display: none; */
 }
 </style>
