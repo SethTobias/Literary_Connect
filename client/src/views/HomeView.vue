@@ -2,9 +2,9 @@
   <div class="home">
     <Sign v-if="notSign" />
     <div class="home-container">
-      <div class="home-card" v-for="item in $store.state.posts" :key="item.id">
+      <div class="home-card" v-for="item in $store.state.posts" :key="item.id" style="margin: 25px auto;">
         <div class="card-header">
-          <div class="pp"><img :src="item.pp_url" alt="" /></div>
+          <div class="pp"><img :src="item.pp_url" alt=""/></div>
           <div>
             <p>
               <span>{{ item.username }}</span>
@@ -14,11 +14,12 @@
           <i class="fa-solid fa-ellipsis-vertical"></i>
         </div>
         <div class="card-body">
-          <div class="card-data"><img :src="item.post_url" alt="" /></div>
-          <!-- <div class="card-indicators">
-            <i class="fa-solid fa-circle-arrow-left"></i>
-            <i class="fa-solid fa-circle-arrow-right"></i>
-          </div> -->
+          <div class="card-data" ><img :src="item.post_url" alt="" style="height: 500px; width: auto;"/></div>
+          <div class="card-indicators">
+            <h3>{{item.caption}}</h3>
+            <!-- <i class="fa-solid fa-circle-arrow-left"></i>
+            <i class="fa-solid fa-circle-arrow-right"></i> -->
+          </div>
         </div>
         <div class="card-footer">
           <div class="post-dash">
@@ -62,7 +63,7 @@
       <h3>Signed in as...</h3>
       <div class="dash-user" >
         <div class="user-chip">
-          <img :src="user?.pp_url || 'https://i.ibb.co/zXNbtq4/Default-user.jpg' " alt="" />
+          <img :src="user?.pp_url || 'https://i.ibb.co/zXNbtq4/Default-user.jpg' " alt=""/>
           <div class="user-info">
             <div class="user-name">
               <p>{{user?.username || 'Unknown User'}}</p>
@@ -292,12 +293,15 @@ export default {
 }
 .card-body .card.data {
   grid-area: 1/1/2/2;
+  z-index: 1;
 }
 .card-body .card-indicators {
   grid-area: 1/1/2/2;
   z-index: 2;
   display: flex;
   place-content: center space-between;
+  text-align: center;
+  margin: auto;
   font-size: 35px;
 }
 .card-footer {
