@@ -9,13 +9,16 @@
         style="scale: 0.8; margin: -40px 0 -20px 0; padding: 0"
       />
       <div class="signin-input">
-        <input type="text" />
-        <input type="text" />
-        <input type="submit" />
+        <form class="signin-input">
+          <input type="text" v-model="username" placeholder="Username" />
+          <input type="text" v-model="password" placeholder="Password" />
+          <button type="submit" @click.prevent="loginUser">Sign In:</button>
+        </form>
+        <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
       </div>
     </div>
 
-    <form class="signin-form">
+    <div class="signin-form">
       <div class="signin-txt">
         <p
           style="
@@ -37,13 +40,22 @@
       <router-link to="/signup" class="signin-up"
         >No account? Consider signing up!</router-link
       >
-    </form>
+    </div>
   </div>
 </template>
 
 <script>
 import Sign from "../components/SignUp.vue";
+import { mapActions } from "vuex";
+
 export default {
+  data() {
+    return {
+      username: "",
+      password: "",
+      errorMessage: "",
+    };
+  },
   components: {
     Sign,
   },
@@ -51,6 +63,20 @@ export default {
     notSign: {
       type: Boolean,
       default: false,
+    },
+  },
+  methods: {
+    ...mapActions(["login"]),
+    async loginUser() {
+      const { username, password } = this;
+
+      const { success, error } = await this.login({ username, password });
+      if (!success) {
+        this.errorMessage = error;
+      } else {
+        console.log("Success");
+        this.$router.push('/');
+      }
     },
   },
 };

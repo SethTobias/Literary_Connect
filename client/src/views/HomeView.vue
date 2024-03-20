@@ -45,7 +45,6 @@
               <div class="comments-btn" @click="openModal">View Comments</div>
               <div class="comments-container" v-if="isModalOpen">
                 <div @click="closeModal">Close</div>
-                <Comment />
               </div>
             </div>
             <div class="post-comment">
@@ -61,7 +60,7 @@
     </div>
     <div class="home-dash">
       <h3>Signed in as...</h3>
-      <div class="dash-user">
+      <div class="dash-user" >
         <div class="user-chip">
           <img src="https://i.ibb.co/zXNbtq4/Default-user.jpg" alt="" />
           <div class="user-info">
@@ -105,7 +104,7 @@
 
 <script>
 import Sign from "../components/SignUp.vue";
-import Comment from "../components/Comment.vue";
+import { mapState } from 'vuex';
 export default {
   components: {
     Sign,
@@ -125,15 +124,11 @@ export default {
     getPosts() {
       this.$store.dispatch("getPosts");
     },
-    getUserID() {
-      this.$store.dispatch("getUserID");
-    },
+
     getUsers() {
       this.$store.dispatch("getUsers");
     },
-    getLike() {
-      this.$store.dispatch("getLike");
-    },
+
   },
   methods: {
     openModal() {
@@ -145,9 +140,7 @@ export default {
   },
   mounted() {
     this.getPosts;
-    this.getUserID;
     this.getUsers;
-    // this.getLike;
   },
 };
 </script>

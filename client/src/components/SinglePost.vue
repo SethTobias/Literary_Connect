@@ -11,9 +11,9 @@
         <div></div>
         <div>
           <p>
-            {{item.username}}
+            {{ item.username }}
           </p>
-          <p>{{item.created_at}}</p>
+          <p>{{ item.created_at }}</p>
         </div>
         <i class="fa-solid fa-ellipsis-vertical"></i>
       </div>
@@ -42,20 +42,31 @@
     </div>
     <div class="info-comment">
       <div class="comments-container">
-        <Comment/>
+        <div
+          id="comment"
+          v-for="comment in $store.state.comment"
+          :key="comment.comment_id"
+        >
+          <div class="comment-pp">
+            <img :src="item.user_pp" alt="" />
+          </div>
+          <p>
+            {{ comment.username }}<span>{{ comment.created_at }}</span>
+          </p>
+          <p>{{ comment.comment_text }}</p>
+        </div>
       </div>
       <div class="comment-input">
         <div class="comment-icon">
           <i class="fa-solid fa-comment"></i>
           <i class="fa-solid fa-plus"></i>
         </div>
-        <input type="text" placeholder="Add a Comment"/>
+        <input type="text" placeholder="Add a Comment" />
       </div>
     </div>
   </div>
 </template>
 <script>
-import Comment from "../components/Comment.vue"
 export default {
   computed: {
     getPostId() {

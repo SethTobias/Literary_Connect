@@ -1,11 +1,12 @@
 import { createStore } from "vuex";
 import axios from "axios";
-let api_url = "https://literary-connect.onrender.com";
+let api_url = "https://literary-connect.onrender.com";  
 export default createStore({
   state: {
+    user: null,
+    token: null,
     users: [],
-    loggedIn: [],
-    follows: [],
+    follows: [],  
     followings: [],
     followers: [],
     posts: [],
@@ -16,11 +17,22 @@ export default createStore({
   },
   getters: {},
   mutations: {
+    // Log In/Out
+    setUser(state, user) {
+      state.user = user;
+    },
+    setToken(state, token) {
+      state.token = token;
+    },
+    clearUser(state) {
+      state.user = null;
+    },
+    clearToken(state) {
+      state.token = null;
+    },
+    // 
     setUsers(state, data) {
       state.users = data;
-    },
-    setUser(state, data) {
-      state.loggedIn = data;
     },
     setFollows(state, data) {
       state.follows = data;
@@ -58,15 +70,28 @@ export default createStore({
         commit("setUsers", []);
       }
     },
-    async getUser({ commit }) {
+    async login({ commit }, { username, password }) {
       try {
-        const { data } = await axios.post(api_url + "/user/login");
-        commit("setUserID", data);
+        const response = await axios.post(api_url + '/user/login', {
+          username,
+          password,
+        });
+        const { user, token } = response.data;
+        console.log(user,token)
+        commit('setUser', user);
+        commit('setToken', token);
+        return { success: true };
       } catch (error) {
-        console.error(
-          "Error: Failed to log in.Unable to retrieve User from database",
-          error
-        );
+        console.error('Login failed:', error);
+        return { success: false, error: error.response.data.msg };
+      }
+    },
+    async logout({ commit }) {
+      try {
+        commit('clearUser');
+        commit('clearToken');
+      } catch (error) {
+        console.error('Logout failed:', error);
       }
     },
     async getUserID({ commit }, user_id) {
