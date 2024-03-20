@@ -76,9 +76,10 @@ export default createStore({
           username,
           password,
         });
-        const { user, token } = response.data;
-        console.log(user,token)
-        commit('setUser', user);
+        const { user , token } = response.data;
+        // console.log(user[0].username,token)
+        commit('setUser', user[0]);
+        localStorage.setItem('token', token);
         commit('setToken', token);
         return { success: true };
       } catch (error) {
@@ -89,6 +90,7 @@ export default createStore({
     async logout({ commit }) {
       try {
         commit('clearUser');
+        localStorage.removeItem('token',token)
         commit('clearToken');
       } catch (error) {
         console.error('Logout failed:', error);

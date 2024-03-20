@@ -33,10 +33,10 @@
         <i class="fa-solid fa-link"></i>
         <span class="collapse-txt" :style="dynamicText">Links</span>
       </router-link> -->
-      <p  @click="toggleStyles">
+      <p @click="toggleStyles">
         <i class="fa-solid fa-comment-dots"></i>
         <!-- <i class="fa-regular fa-comment-dots"></i> -->
-        <span class="collapse-txt"  :style="dynamicText">Conversations</span>
+        <span class="collapse-txt" :style="dynamicText">Conversations</span>
       </p>
       <!-- <p  @click="toggleStyles">
         <i class="fa-solid fa-heart"></i>
@@ -52,7 +52,7 @@
         <!-- <i class="fa-regular fa-id-badge"></i> -->
         <span class="collapse-txt" :style="dynamicText">My Profile</span>
       </router-link>
-      <router-link to="/admin" :v-if="$store.state.userType==='Curator'">
+      <router-link to="/admin" :v-if="$store.state.userType === 'Curator'">
         <i class="fa-solid fa-gears"></i>
         <span class="collapse-txt" :style="dynamicText">Admin</span>
       </router-link>
@@ -60,35 +60,50 @@
         <i class="fa-solid fa-right-to-bracket"></i>
         <span class="collapse-txt" :style="dynamicText">Sign In</span>
       </router-link>
+        <p class="collapse-txt" :style="dynamicText" @click="logoutUser">Sign Out</p>
     </div>
     <div class="sub-nav"></div>
   </nav>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
   data() {
     return {
       dynamicWidth: {
-        width: "25%"
+        width: "25%",
       },
-        dynamicLogo: {
-            width: "auto"
-
-        },
-        dynamicText: {
-            display: ""
-
-        },
+      dynamicLogo: {
+        width: "auto",
+      },
+      dynamicText: {
+        display: "",
+      },
       isStylesApplied: true,
     };
   },
   methods: {
     toggleStyles() {
       this.isStylesApplied = !this.isStylesApplied;
-      this.dynamicWidth = this.isStylesApplied ? { width: "25%"} : { width: "5%"};
-      this.dynamicLogo = this.isStylesApplied ? {width: "auto"} : {width: "50px"};
-      this.dynamicText = this.isStylesApplied ? {display: ""} : {display: "none"};
+      this.dynamicWidth = this.isStylesApplied
+        ? { width: "25%" }
+        : { width: "5%" };
+      this.dynamicLogo = this.isStylesApplied
+        ? { width: "auto" }
+        : { width: "50px" };
+      this.dynamicText = this.isStylesApplied
+        ? { display: "" }
+        : { display: "none" };
+    },
+    ...mapActions(['logout']),
+    async logoutUser() {
+      try {
+        this.logout();
+        this.$router.push('/signin');
+      } catch (error) {
+        console.error('Failed to logout:', error);
+      }
     },
   },
 };
@@ -181,8 +196,6 @@ export default {
   grid-area: 1/1/2/2;
   scale: 1.5;
 }
-
-
 
 /* #logo img {
 

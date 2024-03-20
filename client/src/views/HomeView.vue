@@ -62,11 +62,11 @@
       <h3>Signed in as...</h3>
       <div class="dash-user" >
         <div class="user-chip">
-          <img src="https://i.ibb.co/zXNbtq4/Default-user.jpg" alt="" />
+          <img :src="user.user_pp" alt="" />
           <div class="user-info">
             <div class="user-name">
-              <p>Profile Name</p>
-              <p>Actual Name</p>
+              <p>{{user.username}}</p>
+              <p>{{user.firstName}} {{user.lastName}}</p>
             </div>
             <i class="fa-solid fa-right-left"></i>
           </div>
@@ -112,6 +112,7 @@ export default {
   data() {
     return {
       isModalOpen: false,
+      user: '',
     };
   },
   props: {
@@ -128,7 +129,7 @@ export default {
     getUsers() {
       this.$store.dispatch("getUsers");
     },
-
+    ...mapState(['user']),
   },
   methods: {
     openModal() {
@@ -141,6 +142,7 @@ export default {
   mounted() {
     this.getPosts;
     this.getUsers;
+    console.log('Logged in user:', this.user);
   },
 };
 </script>
