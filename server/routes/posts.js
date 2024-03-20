@@ -18,8 +18,8 @@ router.route("/post").get(postController.getPosts);
 router.route("/post/:post_id").get(postController.getPost);
 router.route("/post/users/:user_id").get(postController.getUserPosts);
 router.route("/post/add/:user_id").post(postController.putPost);
-router.route("/post/edit/:post_id").patch(postController.editPost);
-router.route("/post/delete/:post_id").delete(postController.deletePost);
+router.route("/post/edit/:post_id").patch(verifyToken,postController.editPost);
+router.route("/post/delete/:post_id").delete(verifyToken,postController.deletePost);
 
 // router.route("/reset").delete(postController.resetPosts);
 

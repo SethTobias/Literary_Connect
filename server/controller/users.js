@@ -278,18 +278,23 @@ const userController = {
   login: async (req, res) => {
     try {
       const { username, password } = req.body;
-
-      // Retrieve hashed password from the database based on the username
+      const existingToken = req.cookies.jwt_token; // Assuming token is stored in a cookie
+  
+      if (existingToken) {
+        // If the user already has a valid token, return a success response
+        return res.status(200).json({ msg: "User already logged in", token: existingToken });
+      }
+  
+      // Continue with the login process for users without a valid token
       let user = await getUser(username);
       let [[hashedPassword]] = await getHash(username);
-
+  
       if (!hashedPassword) {
         return res.status(401).json({ msg: "User not found" });
       }
-
+  
       let userPassword = hashedPassword.password;
-
-      // Compare the provided password with the hashed password
+  
       const result = await bcrypt.compare(password, userPassword);
       if (result) {
         const token = jwt.sign({ username }, process.env.SECRET_KEY, {
@@ -300,11 +305,8 @@ const userController = {
           httpOnly: true,
         };
         res.cookie("jwt_token", token, cookieOptions);
-        // Passwords match, proceed with login logic
         res.status(200).json({ msg: "Login successful", user, token });
-        console.log(token);
       } else {
-        // Passwords do not match
         res.status(401).json({ msg: "Incorrect password" });
       }
     } catch (error) {
@@ -312,6 +314,7 @@ const userController = {
       res.status(500).json({ error: "Internal Server Error" });
     }
   },
+  
 
   getFollows: async (req, res) => {
     try {
