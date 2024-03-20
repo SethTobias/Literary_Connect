@@ -2,7 +2,7 @@
   <nav class="Navbar">
     <div class="main-nav" :style="dynamicWidth">
       <div id="logo">
-        <router-link to="/">
+        <router-link to="/home">
           <h1 class="collapse-txt" :style="dynamicText">Literary Connect</h1>
 
           <img
@@ -13,7 +13,7 @@
           <!-- <img src="https://i.ibb.co/Z2ncByL/Logo-Dark.png" alt="Website Logo"> -->
         </router-link>
       </div>
-      <router-link to="/" class="router-home">
+      <router-link to="/home" class="router-home">
         <div class="home-icon">
           <i class="fa-solid fa-location-pin"></i>
           <i class="fa-solid fa-link"></i>
@@ -56,7 +56,7 @@
         <i class="fa-solid fa-gears"></i>
         <span class="collapse-txt" :style="dynamicText">Admin</span>
       </router-link>
-      <router-link to="/signin">
+      <router-link to="/">
         <i class="fa-solid fa-right-to-bracket"></i>
         <span class="collapse-txt" :style="dynamicText">Sign In</span>
       </router-link>
@@ -100,7 +100,7 @@ export default {
     async logoutUser() {
       try {
         this.logout();
-        this.$router.push('/signin');
+        this.$router.push('/');
       } catch (error) {
         console.error('Failed to logout:', error);
       }

@@ -62,24 +62,24 @@
       <h3>Signed in as...</h3>
       <div class="dash-user" >
         <div class="user-chip">
-          <img :src="user.user_pp" alt="" />
+          <img :src="user?.pp_url || 'https://i.ibb.co/zXNbtq4/Default-user.jpg' " alt="" />
           <div class="user-info">
             <div class="user-name">
-              <p>{{user.username}}</p>
-              <p>{{user.firstName}} {{user.lastName}}</p>
+              <p>{{user?.username || 'Unknown User'}}</p>
+              <p>{{user?.firstName || 'Unknown'}} {{user?.lastName || 'User'}}</p>
             </div>
-            <i class="fa-solid fa-right-left"></i>
+            <i class="fa-solid fa-right-left" @click="logoutUser"></i>
           </div>
         </div>
       </div>
       <h3>Suggestions...</h3>
       <div class="dash-suggestion">
-        <div class="suggestion-chip">
-          <img src="https://i.ibb.co/zXNbtq4/Default-user.jpg" alt="" />
+        <div class="suggestion-chip" v-for="(item, index) in $store.state.users.slice(0, 1)" :key="index">
+          <img :src="item.pp_url" alt="" />
           <div class="suggestion-info">
             <div class="user-name">
-              <p>Profile Name</p>
-              <p>Actual Name</p>
+              <p>{{item.username}}</p>
+              <p>{{item.firstName}} {{item.lastName}}</p>
             </div>
             <i class="fa-solid fa-circle-plus"></i>
           </div>
@@ -87,12 +87,12 @@
       </div>
       <h3>Catch up with...</h3>
       <div class="dash-catch">
-        <div class="catch-chip">
-          <img src="https://i.ibb.co/zXNbtq4/Default-user.jpg" alt="" />
+        <div class="catch-chip" v-for="(item, index) in $store.state.users.slice(0, 1)" :key="index">
+          <img :src="item.pp_url" alt="" />
           <div class="catch-info">
             <div class="user-name">
-              <p>Profile Name</p>
-              <p>Actual Name</p>
+               <p>{{item.username}}</p>
+              <p>{{item.firstName}} {{item.lastName}}</p>
             </div>
             <i class="fa-solid fa-feather-pointed"></i>
           </div>
@@ -105,6 +105,7 @@
 <script>
 import Sign from "../components/SignUp.vue";
 import { mapState } from 'vuex';
+import { mapActions } from 'vuex';
 export default {
   components: {
     Sign,
@@ -112,7 +113,6 @@ export default {
   data() {
     return {
       isModalOpen: false,
-      user: '',
     };
   },
   props: {
@@ -137,6 +137,15 @@ export default {
     },
     closeModal() {
       this.isModalOpen = false;
+    },
+       ...mapActions(['logout']),
+    async logoutUser() {
+      try {
+        this.logout();
+        this.$router.push('/');
+      } catch (error) {
+        console.error('Failed to logout:', error);
+      }
     },
   },
   mounted() {

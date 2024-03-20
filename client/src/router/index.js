@@ -11,7 +11,7 @@ import SigninView from "../views/SigninView.vue";
 
 const routes = [
   {
-    path: "/",
+    path: "/home",
     name: "home",
     component: HomeView,
   },
@@ -46,7 +46,7 @@ const routes = [
     component: SettingsView,
   },
   {
-    path: "/signin",
+    path: "/",
     name: "signin",
     component: SigninView,
   },

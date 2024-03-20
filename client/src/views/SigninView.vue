@@ -75,7 +75,7 @@ export default {
         this.errorMessage = error;
       } else {
         console.log("Success");
-        this.$router.push('/');
+        this.$router.push('/home');
       }
     },
   },
