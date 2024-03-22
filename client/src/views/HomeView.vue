@@ -63,10 +63,14 @@
       </div>
     </div>
     <div class="home-dash">
-      <router-link to="/signup">
-        <i class="fa-solid fa-user-plus"></i>
-        Sign Up
-      </router-link>
+     <div class="container">
+      <router-link to="/signup" class="link">
+      <i class="fa-solid fa-user-plus"></i>
+      Sign Up
+    </router-link>
+
+    <router-link to="/contact" class="link">Contact</router-link>
+  </div>
       <h3>Signed in as...</h3>
       <div class="dash-user">
         <div class="user-chip">
@@ -201,6 +205,34 @@ export default {
   --fs-20: 2rem;
   --fs-15: 1.5rem;
   --fs-10: 1rem;
+}
+.container {
+  /*  */
+  margin: 25px 25px 0;
+  /*  */
+  z-index: 10;
+  display: flex;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--txt); 
+  font-family: var(--typography); 
+  font-size: var(--fs-10); 
+  padding: 5px 10px; 
+  margin-right: 15px; 
+  border-radius: 5px; 
+  background-color: var(--bg); 
+  transition: background-color 0.3s ease; 
+}
+
+.link i {
+  margin-right: 5px; 
+}
+
+.link:hover {
+  background-color: var(--primary); 
+  color: white; 
 }
 .home {
   /*  */

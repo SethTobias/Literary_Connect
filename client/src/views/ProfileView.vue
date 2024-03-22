@@ -8,8 +8,8 @@
             <img
               :src="user?.pp_url || 'https://i.ibb.co/zXNbtq4/Default-user.jpg'"
               alt="Profile Picture"
-              style="width: 50px; height: 50px"
-            />
+              style="width: 100px; height:100px; border-radius: 100%;"
+            /> 
           </div>
           <input
             type="text"
@@ -129,13 +129,13 @@ export default {
 <style scoped>
 .profile-dash {
   width: 500px;
-  height: 300px;
+  height: 400px;
   margin: auto;
 }
 .edit-input {
   display: flex;
   flex-direction: column;
   place-content: center space-evenly;
-  height: 300px;
+  height: 400px;
 }
 </style>

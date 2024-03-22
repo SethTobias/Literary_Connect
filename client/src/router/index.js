@@ -6,6 +6,7 @@ import LinksView from "../views/LinksView.vue";
 import InteractView from "../views/InteractView.vue";
 import ProfileView from "../views/ProfileView.vue";
 import SettingsView from "../views/SettingsView.vue";
+import ContactView from "../views/ContactView.vue";
 import SignupView from "../views/SignupView.vue";
 import SigninView from "../views/SigninView.vue";
 
@@ -41,9 +42,9 @@ const routes = [
     component: LinksView,
   },
   {
-    path: "/settings",
-    name: "settings",
-    component: SettingsView,
+    path: "/contact",
+    name: "contact",
+    component: ContactView,
   },
   {
     path: "/",
