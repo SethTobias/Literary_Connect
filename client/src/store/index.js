@@ -190,17 +190,17 @@ export default createStore({
       }
     },
     //
-    async addUser({ commit }, newUser) {
+    async registerUser({ commit }, userData) {
       try {
-        const { data } = await axios.post(api_url + "/user/add", newUser);
-        console.log("New user added:", data);
-        dispatch("getUsers");
-        window.location.reload();
+        const response = await axios.post(api_url + '/user/register', userData);
+        const { user, token } = response.data;
+        commit('setUser', user);
+        console.log(user)
+        commit('setToken', token);
+        localStorage.setItem('token', token);
       } catch (error) {
-        console.error(
-          "Error: Failed to add a new user to the Database.",
-          error
-        );
+        console.error('Error registering user:', error.response.data.msg);
+        throw error;
       }
     },
     async follow({ commit }, follower_id) {

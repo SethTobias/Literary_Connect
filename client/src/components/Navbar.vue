@@ -60,7 +60,7 @@
 
       <!-- Admin Link (if user is a curator) -->
       <router-link
-        v-if="$store.state.userType == 'Curator'"
+        v-if="$store.state.user && $store.state.user.userType === 'Curator'"
         to="/admin"
         active-class="active-link"
       >
@@ -69,11 +69,7 @@
       </router-link>
 
       <!-- Sign In/Out Links -->
-      <router-link
-        to="/"
-        v-if="!$store.state.isAuthenticated"
-        active-class="active-link"
-      >
+      <router-link to="/" v-if="!$store.state.user" active-class="active-link">
         <i class="fa-solid fa-right-to-bracket"></i>
         <span class="collapse-txt" :style="dynamicText">Sign In</span>
       </router-link>
@@ -140,9 +136,9 @@ export default {
     };
   },
   computed: {
-     isAuthenticated() {
-    return this.$store.state.isAuthenticated;
-  },
+    isAuthenticated() {
+      return this.$store.state.isAuthenticated;
+    },
     filteredUsers() {
       if (this.selectedFilter === "All") {
         return this.$store.state.users.filter((user) =>

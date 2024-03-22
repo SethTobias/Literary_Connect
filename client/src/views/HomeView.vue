@@ -17,8 +17,7 @@
           </div>
           <i class="fa-solid fa-ellipsis-vertical"></i>
         </div>
-        <div class="card-body">
-          <!-- <div class="card-data" ><img :src="item.post_url" alt="" style="height: 500px; width: auto;"/></div> -->
+        <div class="card-body" :style="{ backgroundImage: `url(${getPostBackground(item)})` }">
           <div class="card-indicators">
             <h3>{{ item.caption }}</h3>
             <!-- <i class="fa-solid fa-circle-arrow-left"></i>
@@ -153,6 +152,15 @@ export default {
       this.$store.dispatch("getUsers");
     },
     ...mapState(["user"]),
+    getPostBackground() {
+      return (post) => {
+        if (post && post.post_url) {
+          return post.post_url;
+        } else {
+          return '';
+        }
+      };
+    },
   },
   methods: {
     openModal() {
@@ -313,14 +321,10 @@ export default {
   display: grid;
   grid: 1fr/1fr;
   align-items: center;
+  background-size: cover;
+  background-position: center;
 }
-.card-body .card.data {
-  grid-area: 1/1/2/2;
-  z-index: 1;
-}
-.card-body .card.data img {
-  z-index: 2;
-}
+
 .card-body .card-indicators {
   grid-area: 1/1/2/2;
   z-index: 2;

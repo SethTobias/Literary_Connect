@@ -51,6 +51,7 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex';
 import Sign from "../components/SignUp.vue";
 export default {
   data() {
@@ -69,6 +70,7 @@ export default {
     },
   },
   computed: {
+    ...mapState(["user"]),
     // getUser() {
     //   this.$store.dispatch("getUser");
     // },
@@ -96,10 +98,7 @@ export default {
     // },
   },
   mounted() {
-     this.$store.state.user;
-     console.log(this.user)
-    //  console.log("Help")
-    // this.getUser();
+    console.log("Logged in user:", this.user);
     // this.getFollowing();
     // this.getFollower();
   },
