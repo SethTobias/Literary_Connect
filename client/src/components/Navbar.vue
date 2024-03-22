@@ -60,7 +60,7 @@
 
       <!-- Admin Link (if user is a curator) -->
       <router-link
-        v-if="$store.state.user && $store.state.user.userType === 'Curator'"
+        
         to="/admin"
         active-class="active-link"
       >

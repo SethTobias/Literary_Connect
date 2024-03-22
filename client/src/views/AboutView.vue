@@ -36,9 +36,7 @@ export default {
     },
   },
   computed: {
-    getPosts() {
-      this.$store.dispatch("getPosts");
-    },
+   
   },
   mounted() {
     this.getPosts;

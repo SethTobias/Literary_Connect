@@ -2,7 +2,7 @@
   <div class="admin">
     <div class="users">
       <table>
-        <tr v-for="item in $store.state.user" :key="item.user_id">
+        <tr v-for="item in $store.state.users" :key="item.user_id">
           <td>{{ item.user_id }}</td>
           <td>{{ item.firstName }}</td>
           <td>{{ item.lastName }}</td>
@@ -14,35 +14,25 @@
           <td>{{ item.userStatus }}</td>
           <td>{{ item.created_at }}</td>
           <td>Edit</td>
-          <td @click="deleteUser">Delete</td>
-          <div class="user-modal">
-            <!-- To add User Modal To Edit Data Into database-->
-          </div>
-        </tr>
-        <tr @click="addUser">
-          Add New User
+          <td @click="deleteUser(item.user_id)">Delete</td>
         </tr>
       </table>
     </div>
     <div class="follows">
       <table>
-        <tr v-for="item in $store.state.follow" :key="item.follow_id">
+        <tr v-for="item in $store.state.follows" :key="item.follow_id">
           <td>{{ item.follow_id }}</td>
           <td>{{ item.follower_id }}</td>
           <td>{{ item.following_id }}</td>
           <td @click="unfollow">Delete</td>
-          <div class="follow-modal">
-            <!-- To add User Modal To Edit Data Into database-->
-          </div>
-        </tr>
-        <tr @click="follow">
-          Add New Follower
+          <td>Edit</td>
+          <td>Delete</td>
         </tr>
       </table>
     </div>
     <div class="posts">
       <table>
-        <tr v-for="item in $store.state.post" :key="item.post_id">
+        <tr v-for="item in $store.state.posts" :key="item.post_id">
           <td>{{ item.post_id }}</td>
           <td>{{ item.post_url }}</td>
           <td>{{ item.caption }}</td>
@@ -58,7 +48,7 @@
         </tr>
       </table>
     </div>
-    <div class="post_likes">
+    <!-- <div class="post_likes">
       <table>
         <tr v-for="item in $store.state.like" :key="item.like_id">
           <td>{{ item.like_id }}</td>
@@ -67,15 +57,15 @@
           <td>Edit</td>
           <td @click="deleteLike">Delete</td>
           <div class="like-modal">
-            <!-- To add Like Modal To Edit Data Into database-->
+            To add Like Modal To Edit Data Into database
           </div>
         </tr>
         <tr @click="addLike">
           Add New Like
         </tr>
       </table>
-    </div>
-    <div class="comments">
+    </div> -->
+    <!-- <div class="comments">
       <table>
         <tr v-for="item in $store.state.comment" :key="item.comment_id">
           <td>{{ item.comment_id }}</td>
@@ -85,14 +75,14 @@
           <td>Edit</td>
           <td @click="deleteComment">Delete</td>
           <div class="comment-modal">
-            <!-- To add Comment Modal To Edit Data Into database-->
+            To add Comment Modal To Edit Data Into database
           </div>
         </tr>
         <tr @click="addComment">
           Add New Comment
         </tr>
       </table>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
@@ -107,8 +97,8 @@ export default {
     getFollows() {
       this.$store.dispatch("getFollows");
     },
-    getPost() {
-      this.$store.dispatch("getPost");
+    getPosts() {
+      this.$store.dispatch("getPosts");
     },
     getLike() {
       this.$store.dispatch("getLike");
@@ -182,12 +172,107 @@ export default {
     },
   },
   mounted() {
-    this.getUsers;
-    this.getFollows;
-    this.getPost;
-    this.getLike;
-    this.getComment;
+    this.$store.dispatch("getUsers");
+    this.$store.dispatch("getFollows");
+    this.$store.dispatch("getPosts");
+    // this.getLike;
+    // this.getComment;
   },
 };
 </script>
-<style scoped></style>
+
+<style scoped>
+.admin {
+  width: 800px;
+  margin: auto;
+  padding: 20px;
+  overflow: auto;
+}
+
+.users table,
+.follows table,
+.posts table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.users th,
+.users td,
+.follows th,
+.follows td,
+.posts th,
+.posts td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--primary);
+}
+
+.users th,
+.follows th,
+.posts th {
+  background-color: var(--bg);
+  font-weight: bold;
+}
+
+.users td:last-child,
+.follows td:last-child,
+.posts td:last-child {
+  text-align: center;
+}
+
+.users td:last-child button,
+.posts td:last-child button {
+  background-color: var(--secondary);
+  color: var(--secondary);
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.users td:last-child button:hover,
+.posts td:last-child button:hover {
+  background-color: var(--secondary);
+}
+
+.follows td:last-child button,
+.posts td:last-child button {
+  background-color: var(--secondary);
+}
+
+.follows td:last-child button:hover,
+.posts td:last-child button:hover {
+  background-color: var(--secondary);
+}
+
+.posts tr:last-child td {
+  border-bottom: none;
+}
+
+.posts tr:last-child td {
+  border-bottom: none;
+}
+
+.posts tr:hover {
+  background-color: var(--secondary);
+  transition: background-color 0.3s ease;
+}
+
+.users table tr:hover {
+  background-color: var(--secondary);
+  transition: background-color 0.3s ease;
+}
+
+.add-new {
+  background-color: var(--accent);
+  color: var(--txt);
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.add-new:hover {
+  background-color: var(--secondary);
+  color: var(--bg);
+}
+</style>
