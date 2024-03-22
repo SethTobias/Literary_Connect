@@ -86,4 +86,20 @@ export default {
     --accent: hsl(242, 93%, 38%);
   }
 }
+@media screen and (max-width: 300px) {
+#app {
+  text-align: center;
+  color: var(--txt);
+  display: grid;
+  grid-template: "nav content" 1fr/1fr 3fr;
+}
+
+#nav {
+  grid-area: nav;
+}
+
+#content {
+  grid-area: content;
+}
+}
 </style>

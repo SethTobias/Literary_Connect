@@ -60,7 +60,7 @@
 
       <!-- Admin Link (if user is a curator) -->
       <router-link
-        
+        v-if="$store.state.user && $store.state.user.userType === 'Curator'"
         to="/admin"
         active-class="active-link"
       >
@@ -370,6 +370,137 @@ export default {
     --primary: hsl(180, 66%, 47%);
     --secondary: hsl(223, 65%, 29%);
     --accent: hsl(242, 93%, 38%);
+  }
+}
+@media screen and (max-width: 300px) {
+  #logo {
+    display: none;
+  }
+  .sub-nav {
+    display: none;
+    border: 2.5px var(--txt) solid;
+    /*  */
+    /* height: 99.32vh; */
+    background: var(--secondary);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  .sub-nav .content {
+    display: flex;
+    place-content: space-between center;
+    width: 100vh;
+  }
+  .main-nav {
+    /*  */
+    background: var(--secondary);
+    /*  */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100vh;
+    display: contents;
+    /*  */
+    display: flex;
+    align-content: center;
+    justify-content: space-evenly;
+    border: 2.5px var(--txt) solid;
+    /*  */
+  }
+
+  .main-nav :is(a, p) {
+    /*  */
+    color: var(--txt);
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .main-nav :is(p) {
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+  }
+
+  .main-nav :is(i) {
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+  }
+
+  .main-nav :is(i):active {
+    color: var(--accent);
+  }
+
+  .main-nav a.router-link-exact-active {
+    color: var(--accent);
+  }
+
+  .router-home {
+    /* display: flex;
+    place-content: center; */
+  }
+
+  .home-icon {
+    display: grid;
+    grid: 1fr/ 1fr;
+    place-items: center;
+  }
+  .home-icon .fa-link {
+    grid-area: 1/1/2/2;
+    z-index: 2;
+    color: white;
+  }
+  .home-icon .fa-location-pin {
+    grid-area: 1/1/2/2;
+    scale: 1.5;
+  }
+
+  .main-nav :is(a, p) {
+    /*  */
+    color: var(--txt);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: var(--fs-15);
+  }
+
+  .sub-nav .content > p {
+    justify-self: end;
+    font-size: var(--fs-15);
+  }
+
+  .sub-nav .content .input {
+    margin-top: 25px;
+    font-size: var(--fs-15);
+  }
+
+  .sub-nav .content .user-container {
+    overflow-y: scroll;
+    margin: 0 auto;
+    width: 250px;
+  }
+
+  .home-icon .fa-link,
+  .home-icon .fa-location-pin {
+    grid-area: 1/1/2/2;
+    scale: 1;
+    font-size: var(--fs-15);
+  }
+
+  .main-nav .active-link :is(span, .collapse-txt) {
+    color: var(--accent);
+    font-weight: bold;
+    display: none;
+  }
+
+  .main-nav .active-link :is(span, i) {
+    color: var(--accent);
+    font-weight: bold;
+  }
+  .main-nav .active-link {
+    color: var(--accent);
+    font-weight: bold;
   }
 }
 </style>

@@ -1,6 +1,7 @@
 <template>
   <div class="admin">
     <div class="users">
+        <h1 style=" margin: 0 auto;">Users Data:</h1>
       <table>
         <tr v-for="item in $store.state.users" :key="item.user_id">
           <td>{{ item.user_id }}</td>
@@ -8,7 +9,7 @@
           <td>{{ item.lastName }}</td>
           <td>{{ item.username }}</td>
           <td>{{ item.email }}</td>
-          <td>{{ item.password }}</td>
+          <!-- <td>{{ item.password }}</td> -->
           <td>{{ item.pp_url }}</td>
           <td>{{ item.userType }}</td>
           <td>{{ item.userStatus }}</td>
@@ -31,6 +32,7 @@
       </table>
     </div>
     <div class="posts">
+      <h1 style="text-align: center;">Posts Data:</h1>
       <table>
         <tr v-for="item in $store.state.posts" :key="item.post_id">
           <td>{{ item.post_id }}</td>
