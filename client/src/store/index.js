@@ -1,12 +1,12 @@
 import { createStore } from "vuex";
 import axios from "axios";
-let api_url = "https://literary-connect.onrender.com";  
+let api_url = "https://literary-connect.onrender.com";
 export default createStore({
   state: {
     user: null,
     token: null,
     users: [],
-    follows: [],  
+    follows: [],
     followings: [],
     followers: [],
     posts: [],
@@ -30,7 +30,7 @@ export default createStore({
     clearToken(state) {
       state.token = null;
     },
-    // 
+    //
     setUsers(state, data) {
       state.users = data;
     },
@@ -48,9 +48,6 @@ export default createStore({
     },
     setPost(state, data) {
       state.post = data;
-    },
-    setUserPosts(state, data) {
-      state.userPosts = data;
     },
     setLike(state, data) {
       state.like = data;
@@ -72,28 +69,28 @@ export default createStore({
     },
     async login({ commit }, { username, password }) {
       try {
-        const response = await axios.post(api_url + '/user/login', {
+        const response = await axios.post(api_url + "/user/login", {
           username,
           password,
         });
-        const { user , token } = response.data;
-        console.log(user,token)
-        commit('setUser', user[0]);
-        localStorage.setItem('token', token);
-        commit('setToken', token);
+        const { user, token } = response.data;
+        console.log(user, token);
+        commit("setUser", user[0]);
+        localStorage.setItem("token", token);
+        commit("setToken", token);
         return { success: true };
       } catch (error) {
-        console.error('Login failed:', error);
+        console.error("Login failed:", error);
         return { success: false, error: error.response.data.msg };
       }
     },
     async logout({ commit }) {
       try {
-        commit('clearUser');
-        localStorage.removeItem('token')
-        commit('clearToken');
+        commit("clearUser");
+        localStorage.removeItem("token");
+        commit("clearToken");
       } catch (error) {
-        console.error('Logout failed:', error);
+        console.error("Logout failed:", error);
       }
     },
     async getUserID({ commit }, user_id) {
@@ -159,18 +156,18 @@ export default createStore({
         console.error("Error: Unable to retrieve Post from database", error);
       }
     },
-    async getUserPost({ commit }, user_id) {
-      try {
-        const { data } = await axios.get(api_url + "/post/" + user_id);
-        console.log(data);
-        commit("setUserPost", data);
-      } catch (error) {
-        console.error(
-          "Error: Unable to retrieve users Post from database",
-          error
-        );
-      }
-    },
+    // async getUserPost({ commit }, user_id) {
+    //   try {
+    //     const { data } = await axios.get(api_url + "/post/" + user_id);
+    //     console.log(data);
+    //     commit("setUserPost", data);
+    //   } catch (error) {
+    //     console.error(
+    //       "Error: Unable to retrieve users Post from database",
+    //       error
+    //     );
+    //   }
+    // },
     async getLike({ commit }, post_id) {
       try {
         const { data } = await axios.get(api_url + "/post/like/" + post_id);
@@ -192,14 +189,14 @@ export default createStore({
     //
     async registerUser({ commit }, userData) {
       try {
-        const response = await axios.post(api_url + '/user/register', userData);
+        const response = await axios.post(api_url + "/user/register", userData);
         const { user, token } = response.data;
-        commit('setUser', user);
-        console.log(user)
-        commit('setToken', token);
-        localStorage.setItem('token', token);
+        commit("setUser", user);
+        console.log(user);
+        commit("setToken", token);
+        localStorage.setItem("token", token);
       } catch (error) {
-        console.error('Error registering user:', error.response.data.msg);
+        console.error("Error registering user:", error.response.data.msg);
         throw error;
       }
     },
@@ -248,14 +245,14 @@ export default createStore({
         console.error("Error: adding a new like to the Database", error);
       }
     },
-
-    async updateUser({ commit }, alteredUser) {
-      await axios.patch(
-        api_url + "/user/edit/" + alteredUser.user_id,
-        alteredUser
-      );
-      commit("updateUser", alteredUser);
-      window.location.reload();
+    async getUserPosts({ commit, state }) {
+      try {
+        const userId = state.user ? state.user.user_id : "";
+        const { data } = await axios.get(api_url + "/user/post" + userId);
+        commit("setUserPosts", data);
+      } catch (error) {
+        console.error("Error fetching user posts:", error);
+      }
     },
     async updatePost({ commit }, alteredPost) {
       await axios.patch(

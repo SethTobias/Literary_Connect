@@ -2,62 +2,74 @@
   <div id="profile">
     <Sign v-if="notSign" />
     <div class="profile-dash">
-      <div class="profile-pp"></div>
-      <div class="profile-info">
-        <div class="profile-data">
-          <p>
-            <!-- {{ $store.state.userPost }} -->
-          </p>
-          <p>
-            <!-- {{ $store.state.userFollowers }} -->
-          </p>
-          <p>
-            <!-- {{ $store.state.userFollowers }} -->
-          </p>
-        </div>
-        <div class="dropdown">
-          <i class="fa-solid fa-gears" @click="toggleDropdown"></i>
-          <div class="dropdown-menu" :class="{ show: isDropdownOpen }">
-            <div class="dropdown-item" @click="openEditUser()">Edit User</div>
-            <div class="editModal" :style="openEditUser">
-              <input type="text" />
-              <input type="text" />
-              <input type="text" />
-              <input type="text" />
-              <input type="text" />
-              <input type="button" value="Submit" />
-            </div>
-            <div @click="deleteUser">Delete</div>
+      <form @submit.prevent="editUser">
+        <div class="edit-input">
+          <div class="profile-pp">
+            <img
+              :src="user?.pp_url || 'https://i.ibb.co/zXNbtq4/Default-user.jpg'"
+              alt="Profile Picture"
+              style="width: 50px; height: 50px"
+            />
           </div>
+          <input
+            type="text"
+            v-model="pp_url"
+            :placeholder="
+              user?.pp_url || 'https://i.ibb.co/zXNbtq4/Default-user.jpg'
+            "
+          />
+          <input
+            type="text"
+            v-model="firstName"
+            :placeholder="user?.firstName || 'First Name'"
+          />
+          <input
+            type="text"
+            v-model="lastName"
+            :placeholder="user?.lastName || 'Last Name'"
+          />
+          <input
+            type="text"
+            v-model="username"
+            :placeholder="user?.username || 'Username'"
+          />
+          <input
+            type="email"
+            v-model="email"
+            :placeholder="user?.email || 'Email'"
+          />
+          <input type="password" v-model="password" placeholder="Password" />
+          <input type="submit" value="Update Profile" />
         </div>
-      </div>
+      </form>
     </div>
     <div class="profile-overview">
       <div class="overview-dash">
-        <h3>User Post</h3>
-        <div
-          class="post-container"
-          v-for="item in $store.state.userPost"
-          :key="item.id"
-        >
-          <router-link
-            :to="{ name: 'Single', params: { post_id: item.post_id } }"
-          >
-            <img :src="item.post_url" />
-          </router-link>
+        <h3>User Posts:</h3>
+        <div class="post-container">
+          <div v-for="item in post" :key="item.id">
+            <p>
+              {{ item.caption}}
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 import Sign from "../components/SignUp.vue";
 export default {
   data() {
     return {
       isDropdownOpen: false,
-      user: '',
+      firstName: "",
+      lastName: "",
+      username: "",
+      email: "",
+      password: "",
+      pp_url: "",
     };
   },
   components: {
@@ -71,46 +83,59 @@ export default {
   },
   computed: {
     ...mapState(["user"]),
-    // getUser() {
-    //   this.$store.dispatch("getUser");
-    // },
-    // getFollowing() {
-    //   this.$store.dispatch("getFollowing");
-    // },
-    // getFollower() {
-    //   this.$store.dispatch("getFollower");
-    // },
-    // getUsers() {
-    //   this.$store.dispatch("getUsers");
-    // },
-    // getFollows() {
-    //   this.$store.dispatch("getFollows");
-    // },
-    // },
-    // getPost() {
-    //   this.$store.dispatch("getPost");
-    // },
-    // getLike() {
-    //   this.$store.dispatch("getLike");
-    // },
-    // getComment() {
-    //   this.$store.dispatch("getComment");
-    // },
+    getPosts() {
+      this.$store.dispatch("getPosts");
+    },
+    getPostBackground() {
+      return (post) => {
+        if (post && post.post_url) {
+          return post.post_url;
+        } else {
+          return "";
+        }
+      };
+    },
   },
   mounted() {
     console.log("Logged in user:", this.user);
-    // this.getFollowing();
-    // this.getFollower();
+    this.getPosts;
   },
 
   methods: {
-    toggleDropdown() {
-      this.isDropdownOpen = !this.isDropdownOpen;
+    async editUser() {
+      try {
+        const editedUserData = {
+          firstName: this.firstName || this.user.firstName,
+          lastName: this.lastName || this.user.lastName,
+          username: this.username || this.user.username,
+          email: this.email || this.user.email,
+          password: this.password || this.user.password,
+          pp_url: this.pp_url || this.user.pp_url,
+        };
+        await this.$store.dispatch("editUser", {
+          user_id: this.user.user_id,
+          ...editedUserData,
+        });
+        this.$router.push("/profile");
+      } catch (error) {
+        console.error("Error updating user:", error);
+      }
     },
-    openEditUser() {
-      this.isModalOpen = false;
-    },
+
+    // ...mapActions(["getUserPosts"]),
   },
 };
 </script>
-<style scoped></style>
+<style scoped>
+.profile-dash {
+  width: 500px;
+  height: 300px;
+  margin: auto;
+}
+.edit-input {
+  display: flex;
+  flex-direction: column;
+  place-content: center space-evenly;
+  height: 300px;
+}
+</style>
