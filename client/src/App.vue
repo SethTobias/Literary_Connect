@@ -49,6 +49,24 @@ export default {
 #content {
   grid-area: content;
 }
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: var(--secondary);
+  border: 2px solid var(--txt);
+}
+::-webkit-scrollbar-track:hover {
+  background: var(--primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
+}
 
 @media (prefers-color-scheme: light) {
   :root {

@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import AdminView from "../views/AdminView.vue";
-import DiscoverView from "../views/DiscoverView.vue";
+import AboutView from "../views/AboutView.vue";
 import LinksView from "../views/LinksView.vue";
 import InteractView from "../views/InteractView.vue";
 import ProfileView from "../views/ProfileView.vue";
@@ -21,9 +21,9 @@ const routes = [
     component: AdminView,
   },
   {
-    path: "/discover",
-    name: "discover",
-    component: DiscoverView,
+    path: "/about",
+    name: "about",
+    component: AboutView,
   },
   {
     path: "/interact",

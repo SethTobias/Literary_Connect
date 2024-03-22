@@ -56,6 +56,7 @@ export default {
   data() {
     return {
       isDropdownOpen: false,
+      user: '',
     };
   },
   components: {
@@ -95,6 +96,9 @@ export default {
     // },
   },
   mounted() {
+     this.$store.state.user;
+     console.log(this.user)
+    //  console.log("Help")
     // this.getUser();
     // this.getFollowing();
     // this.getFollower();

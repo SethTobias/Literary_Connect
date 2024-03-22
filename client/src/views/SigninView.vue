@@ -1,7 +1,21 @@
 <template>
   <div id="signin">
     <Sign v-if="notSign" />
-    <h1 style="font-size: var(--fs-30)">Literary Connect</h1>
+    <h1
+      style="
+        font-size: var(--fs-30);
+        background-image: linear-gradient(
+          to top,
+          var(--accent),
+          var(--primary)
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      "
+    >
+      Literary Connect
+    </h1>
     <div style="display: flex; place-content: center">
       <img
         src="https://i.ibb.co/HChwBLC/Logo.png"
@@ -75,7 +89,7 @@ export default {
         this.errorMessage = error;
       } else {
         console.log("Success");
-        this.$router.push('/home');
+        this.$router.push("/home");
       }
     },
   },

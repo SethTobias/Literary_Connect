@@ -1,10 +1,14 @@
 <template>
   <div class="home">
-    <Sign v-if="notSign" />
     <div class="home-container">
-      <div class="home-card" v-for="item in $store.state.posts" :key="item.id" style="margin: 25px auto;">
+      <div
+        class="home-card"
+        v-for="item in $store.state.posts"
+        :key="item.id"
+        style="margin: 25px auto"
+      >
         <div class="card-header">
-          <div class="pp"><img :src="item.pp_url" alt=""/></div>
+          <div class="pp"><img :src="item.pp_url" alt="" /></div>
           <div>
             <p>
               <span>{{ item.username }}</span>
@@ -14,9 +18,9 @@
           <i class="fa-solid fa-ellipsis-vertical"></i>
         </div>
         <div class="card-body">
-          <div class="card-data" ><img :src="item.post_url" alt="" style="height: 500px; width: auto;"/></div>
+          <!-- <div class="card-data" ><img :src="item.post_url" alt="" style="height: 500px; width: auto;"/></div> -->
           <div class="card-indicators">
-            <h3>{{item.caption}}</h3>
+            <h3>{{ item.caption }}</h3>
             <!-- <i class="fa-solid fa-circle-arrow-left"></i>
             <i class="fa-solid fa-circle-arrow-right"></i> -->
           </div>
@@ -60,14 +64,24 @@
       </div>
     </div>
     <div class="home-dash">
+      <router-link to="/signup">
+        <i class="fa-solid fa-user-plus"></i>
+        Sign Up
+      </router-link>
       <h3>Signed in as...</h3>
-      <div class="dash-user" >
+      <div class="dash-user">
         <div class="user-chip">
-          <img :src="user?.pp_url || 'https://i.ibb.co/zXNbtq4/Default-user.jpg' " alt=""/>
+          <img
+            :src="user?.pp_url || 'https://i.ibb.co/zXNbtq4/Default-user.jpg'"
+            alt=""
+          />
           <div class="user-info">
             <div class="user-name">
-              <p>{{user?.username || 'Unknown User'}}</p>
-              <p>{{user?.firstName || 'Unknown'}} {{user?.lastName || 'User'}}</p>
+              <p>{{ user?.username || "Unknown User" }}</p>
+              <p>
+                {{ user?.firstName || "Unknown" }}
+                {{ user?.lastName || "User" }}
+              </p>
             </div>
             <i class="fa-solid fa-right-left" @click="logoutUser"></i>
           </div>
@@ -75,12 +89,16 @@
       </div>
       <h3>Suggestions...</h3>
       <div class="dash-suggestion">
-        <div class="suggestion-chip" v-for="(item, index) in $store.state.users.slice(0, 1)" :key="index">
+        <div
+          class="suggestion-chip"
+          v-for="(item, index) in $store.state.users.slice(0, 1)"
+          :key="index"
+        >
           <img :src="item.pp_url" alt="" />
           <div class="suggestion-info">
             <div class="user-name">
-              <p>{{item.username}}</p>
-              <p>{{item.firstName}} {{item.lastName}}</p>
+              <p>{{ item.username }}</p>
+              <p>{{ item.firstName }} {{ item.lastName }}</p>
             </div>
             <i class="fa-solid fa-circle-plus"></i>
           </div>
@@ -88,12 +106,16 @@
       </div>
       <h3>Catch up with...</h3>
       <div class="dash-catch">
-        <div class="catch-chip" v-for="(item, index) in $store.state.users.slice(0, 1)" :key="index">
+        <div
+          class="catch-chip"
+          v-for="(item, index) in $store.state.users.slice(0, 1)"
+          :key="index"
+        >
           <img :src="item.pp_url" alt="" />
           <div class="catch-info">
             <div class="user-name">
-               <p>{{item.username}}</p>
-              <p>{{item.firstName}} {{item.lastName}}</p>
+              <p>{{ item.username }}</p>
+              <p>{{ item.firstName }} {{ item.lastName }}</p>
             </div>
             <i class="fa-solid fa-feather-pointed"></i>
           </div>
@@ -105,8 +127,8 @@
 
 <script>
 import Sign from "../components/SignUp.vue";
-import { mapState } from 'vuex';
-import { mapActions } from 'vuex';
+import { mapState } from "vuex";
+import { mapActions } from "vuex";
 export default {
   components: {
     Sign,
@@ -130,7 +152,7 @@ export default {
     getUsers() {
       this.$store.dispatch("getUsers");
     },
-    ...mapState(['user']),
+    ...mapState(["user"]),
   },
   methods: {
     openModal() {
@@ -139,20 +161,20 @@ export default {
     closeModal() {
       this.isModalOpen = false;
     },
-       ...mapActions(['logout']),
+    ...mapActions(["logout"]),
     async logoutUser() {
       try {
         this.logout();
-        this.$router.push('/');
+        this.$router.push("/");
       } catch (error) {
-        console.error('Failed to logout:', error);
+        console.error("Failed to logout:", error);
       }
     },
   },
   mounted() {
     this.getPosts;
     this.getUsers;
-    console.log('Logged in user:', this.user);
+    console.log("Logged in user:", this.user);
   },
 };
 </script>
@@ -175,7 +197,7 @@ export default {
 .home {
   /*  */
   display: grid;
-  grid: "post dash" 100% / 1.5fr 1fr;
+  grid: "post dash" 100% / 2fr 1fr;
   /*  */
   align-items: center;
 }
@@ -190,19 +212,20 @@ export default {
   /*  */
   grid-area: post;
   /*  */
-  background-color: black;
+  /* background-color: black; */
   /*  */
-  overflow-y: scroll;
+  /* overflow-y: auto; */
   /*  */
-  height: 650px;
+  /* height: 650px; */
   /*  */
-  margin: auto 0;
+  /* margin: auto; */
   /*  */
   display: flex;
   flex-direction: column;
   place-content: space-around center;
 }
-::-webkit-scrollbar {
+
+/* ::-webkit-scrollbar {
   width: 12px;
 }
 ::-webkit-scrollbar-track {
@@ -219,7 +242,7 @@ export default {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--secondary);
-}
+} */
 
 .comments-container {
   width: 400px;
@@ -247,7 +270,7 @@ export default {
     "body" 3fr
     "footer" 1.25fr/ 100%;
   /*  */
-  background-color: aqua;
+  background-color: var(--primary);
 }
 
 .card-header {
@@ -256,7 +279,8 @@ export default {
   grid: "p h i" 1fr / 1fr 8fr 1fr;
   align-items: center;
   /*  */
-  background-color: grey;
+  background-color: var(--secondary);
+  border: 1px var(--txt) solid;
 }
 
 .card-header .pp {
@@ -264,7 +288,6 @@ export default {
   grid-area: p;
   height: 50px;
   width: 50px;
-  background-color: aqua;
   border-radius: 25px;
 }
 .card-header div {
@@ -295,6 +318,9 @@ export default {
   grid-area: 1/1/2/2;
   z-index: 1;
 }
+.card-body .card.data img {
+  z-index: 2;
+}
 .card-body .card-indicators {
   grid-area: 1/1/2/2;
   z-index: 2;
@@ -308,7 +334,8 @@ export default {
   display: flex;
   flex-direction: column;
   place-content: space-evenly;
-  background-color: grey;
+  background-color: var(--secondary);
+  border: 1px var(--txt) solid;
 }
 .card-footer .post-dash {
   display: flex;
@@ -355,7 +382,16 @@ export default {
   /*  */
   grid-area: dash;
   /*  */
-  background-color: gold;
+  /* background-color: gold; */
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 350px;
 }
 
 .dash-user,
